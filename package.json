@@ -1,7 +1,7 @@
 {
   "name": "3d-portfolio-website",
   "version": "0.1.1",
-  "homepage": "https://oussamaom7.github.io/portfolio2",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.1.0",

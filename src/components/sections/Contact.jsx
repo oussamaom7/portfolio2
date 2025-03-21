@@ -157,7 +157,6 @@ const Contact = () => {
   return (
     <Container>
       <Wrapper>
-       
         <Title>Contact</Title>
         <Desc>
           Feel free to reach out to me for any questions or opportunities!
