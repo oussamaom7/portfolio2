@@ -1,4 +1,5 @@
 import Xticket from '../images/xticket.png';
+import SPA from '../images/Stock_price_app.png';
 import Imagen from '../images/imagen.png';
 export const Bio = {
   name: "Oussama Maache",
@@ -301,6 +302,18 @@ export const projects = [
     tags: ["React Js", "Node JS"],
     category: "web app",
     github: "",
+    webapp: "",
+  },
+  {
+    id: 3,
+    title: "Stock Price App",
+    date: "",
+    description:
+      "This Stock Price App provides an interactive way to view the historical stock data of major companies, such as Google and Apple. It fetches data using the Yahoo Finance API and visualizes it through Streamlit for easy and interactive exploration.",
+    image:SPA,
+    tags: ["Python", "StreamLit", "Yfinance", "Pandas"],
+    category: "machine learning",
+    github: "https://github.com/oussamaom7/Stock-Price-App",
     webapp: "",
   },
 ];
