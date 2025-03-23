@@ -316,5 +316,17 @@ export const projects = [
     github: "https://github.com/oussamaom7/Stock-Price-App",
     webapp: "",
   },
+  {
+    id: 5,
+    title: "EDA BasketBall",
+    date: "",
+    description:
+      "The NBA Player Stats Explorer is a Streamlit web application that allows users to explore NBA player statistics for a specific season. The app leverages web scraping to gather player data from Basketball Reference, providing users with a detailed view of player performance metrics such as points, assists, rebounds, and more.",
+    image:SPA,
+    tags: ["Python", "StreamLit", "Seaborn", "Pandas", "Matlibo", "NumPy"],
+    category: "machine learning",
+    github: "https://github.com/oussamaom7/Basketball_eda",
+    webapp: "",
+  },
 ];
 
