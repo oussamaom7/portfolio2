@@ -1,5 +1,6 @@
 import Xticket from '../images/xticket.png';
 import SPA from '../images/Stock_price_app.png';
+import BB from '../images/basket.png';
 import Imagen from '../images/imagen.png';
 export const Bio = {
   name: "Oussama Maache",
@@ -322,7 +323,7 @@ export const projects = [
     date: "",
     description:
       "The NBA Player Stats Explorer is a Streamlit web application that allows users to explore NBA player statistics for a specific season. The app leverages web scraping to gather player data from Basketball Reference, providing users with a detailed view of player performance metrics such as points, assists, rebounds, and more.",
-    image:SPA,
+    image:BB,
     tags: ["Python", "StreamLit", "Seaborn", "Pandas", "Matlibo", "NumPy"],
     category: "machine learning",
     github: "https://github.com/oussamaom7/Basketball_eda",
