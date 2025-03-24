@@ -1,4 +1,5 @@
 import Xticket from '../images/xticket.png';
+import td from '../images/todo.png';
 import SPA from '../images/Stock_price_app.png';
 import BB from '../images/basket.png';
 import Imagen from '../images/imagen.png';
@@ -280,7 +281,7 @@ export const projects = [
     webapp: "",
   },
   {
-    id: 4,
+    id: 3,
     title: "Whatsapp Clone",
     date: "",
     description:
@@ -293,20 +294,19 @@ export const projects = [
     webapp: "",
   },
   {
-    id: 3,
+    id: 4,
     title: "Todo Web App",
     date: "",
     description:
       " A Todo Web App made with React JS, Redux, and Material UI. It has a login page where users can log in with their Google account. It has a sidebar where users can see all the tasks and can create a new task. It has a calendar where users can see all the tasks on a particular date. It has a search bar where users can search for a particular task.",
-    image:
-      "https://private-user-images.githubusercontent.com/168731971/375977406-927a61f2-0908-4b76-98fd-7a77191b0177.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDI1MTg5NDEsIm5iZiI6MTc0MjUxODY0MSwicGF0aCI6Ii8xNjg3MzE5NzEvMzc1OTc3NDA2LTkyN2E2MWYyLTA5MDgtNGI3Ni05OGZkLTdhNzcxOTFiMDE3Ny5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwMzIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDMyMVQwMDU3MjFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jZDU4YmJjMTljYjk2ZjQ2ZTkyMjNmZmIwNzMwMjdhYmFjNzI2OWVkNmQzZmYzM2M3NWQxOWQ1NDJmMmY4YTZmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.iCY3BNn_e3rA-8cIha94u9gsdtT8OUuW2PlT9MmcYlM",
+    image: td,
     tags: ["React Js", "Node JS"],
     category: "web app",
     github: "",
     webapp: "",
   },
   {
-    id: 3,
+    id: 5,
     title: "Stock Price App",
     date: "",
     description:
@@ -318,7 +318,7 @@ export const projects = [
     webapp: "",
   },
   {
-    id: 5,
+    id: 6,
     title: "EDA BasketBall",
     date: "",
     description:
