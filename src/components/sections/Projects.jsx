@@ -4,16 +4,6 @@ import { projects } from "../../data/constants";
 import ProjectCard from "../cards/ProjectCard";
 import Loading from "../Loading";
 
-const Container = styled.div`
-margin-top: 100px;
-display: flex;
-flex-direction: column;
-justify-content-center;
-position: relative;
-z-index: 1;
-padding: 0 16px;
-align-items: center;
-`;
 const Wrapper = styled.div`
   position: relative;
   display: flex;
@@ -119,6 +109,17 @@ const FilterContainer = styled.div`
   margin-bottom: 24px;
 `;
 
+const ProjectsContainer = styled.section`
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 16px;
+  align-items: center;
+`;
+
 const Projects = ({ openModal, setOpenModal }) => {
   const [toggle, setToggle] = useState("all");
   const [search, setSearch] = useState("");
@@ -147,12 +148,10 @@ const Projects = ({ openModal, setOpenModal }) => {
   }
 
   return (
-    <Container id="Projects">
+    <ProjectsContainer id="projects">
       <Wrapper>
-        <Title>Projects</Title>
-        <Desc>
-          I have worked on a wide range of projects. Here are some of my notable works.
-        </Desc>
+        <Title role="heading" aria-level="2">Projects</Title>
+        <Desc>Here are some of my notable projects that showcase my skills and experience.</Desc>
         
         <FilterContainer>
           <SearchInput 
@@ -196,12 +195,15 @@ const Projects = ({ openModal, setOpenModal }) => {
                 project={project}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
+                aria-label={`Project: ${project.title}`}
+                itemScope
+                itemType="http://schema.org/CreativeWork"
               />
             ))
           )}
         </CardContainer>
       </Wrapper>
-    </Container>
+    </ProjectsContainer>
   );
 };
 

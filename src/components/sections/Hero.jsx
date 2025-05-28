@@ -5,7 +5,7 @@ import Typewriter from "typewriter-effect";
 import HeroImg from "../../images/hero.jpg";
 import { Tilt } from "react-tilt";
 
-const HeroContainer = styled.div`
+const HeroContainer = styled.section`
   display: flex;
   justify-content: center;
   position: relative;
@@ -201,16 +201,16 @@ const SocialMediaIcon = styled.a`
 
 const Hero = () => {
   return (
-    <div id="About">
-      <HeroContainer>
-        <HeroInnerContainer>
-          <HeroLeftContainer>
-            <Title>
-              Hi, I am <br /> {Bio.name}
-            </Title>
-            <TextLoop>
-              I am a
-              <Span>
+    <HeroContainer id="about">
+      <HeroInnerContainer>
+        <HeroLeftContainer>
+          <Title role="heading" aria-level="1">
+            Hi, I am <br /> {Bio.name}
+          </Title>
+          <TextLoop>
+            <span>
+              I am a{" "}
+              <Span aria-label="roles">
                 <Typewriter
                   options={{
                     strings: Bio.roles,
@@ -219,37 +219,44 @@ const Hero = () => {
                   }}
                 />
               </Span>
-            </TextLoop>
-            <SubTitle>{Bio.description}</SubTitle>
-            <SocialMediaIcons>
-              <SocialMediaIcon
-                href={Bio.github}
-                target="_blank"
-                aria-label="GitHub"
-              >
-                <i className="fab fa-github"></i>
-              </SocialMediaIcon>
-              <SocialMediaIcon
-                href={Bio.linkedin}
-                target="_blank"
-                aria-label="LinkedIn"
-              >
-                <i className="fab fa-linkedin"></i>
-              </SocialMediaIcon>
-            </SocialMediaIcons>
-            <ResumeButton href={Bio.resume} target="_blank">
-              Check Resume
-            </ResumeButton>
-          </HeroLeftContainer>
+            </span>
+          </TextLoop>
+          <SubTitle role="paragraph">{Bio.description}</SubTitle>
+          <ResumeButton
+            href={Bio.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Download Resume"
+          >
+            Check Resume
+          </ResumeButton>
+          <SocialMediaIcons>
+            <SocialMediaIcon
+              href={Bio.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile"
+            >
+              <i className="fab fa-github"></i>
+            </SocialMediaIcon>
+            <SocialMediaIcon
+              href={Bio.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+            >
+              <i className="fab fa-linkedin"></i>
+            </SocialMediaIcon>
+          </SocialMediaIcons>
+        </HeroLeftContainer>
 
-          <HeroRightContainer>
-            <Tilt options={{ max: 20, scale: 1.05 }}>
-              <HeroImage src={HeroImg} alt="Oussama Maache" />
-            </Tilt>
-          </HeroRightContainer>
-        </HeroInnerContainer>
-      </HeroContainer>
-    </div>
+        <HeroRightContainer>
+          <Tilt options={{ max: 20, scale: 1.05 }}>
+            <HeroImage src={HeroImg} alt="Oussama Maache" />
+          </Tilt>
+        </HeroRightContainer>
+      </HeroInnerContainer>
+    </HeroContainer>
   );
 };
 
