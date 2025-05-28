@@ -3,6 +3,7 @@ import { Link as LinkR } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { Bio } from "../data/constants";
 import { MenuRounded } from "@mui/icons-material";
+import ThemeToggle from "./ThemeToggle";
 
 // Styled components
 const Nav = styled.div`
@@ -12,12 +13,10 @@ const Nav = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  position: fixed;
-  top: ${({ isHidden }) => (isHidden ? "-80px" : "0")}; /* Hide the navbar when scrolling down */
-  width: 100%;
+  position: sticky;
+  top: 0;
   z-index: 10;
-  color: white;
-  transition: top 0.3s ease; /* Smooth transition for hiding/revealing navbar */
+  transition: all 0.3s ease;
 `;
 
 const ColorText = styled.div`
@@ -72,12 +71,10 @@ const NavLink = styled.a`
 `;
 
 const ButtonContainer = styled.div`
-  width: 80%;
-  height: 100%;
   display: flex;
-  justify-content: end;
   align-items: center;
-  padding: 0 6px;
+  gap: 16px;
+
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -135,32 +132,29 @@ const MobileMenu = styled.ul`
   z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
 `;
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false); // To track if the navbar is hidden
+const Navbar = ({ isDarkTheme, toggleTheme }) => {  const [isOpen, setIsOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
   const theme = useTheme();
-
-  const lastScrollY = useRef(0);
-
-const handleScroll = () => {
-  if (window.scrollY > lastScrollY.current) {
-    setIsHidden(true);
-  } else {
-    setIsHidden(false);
-  }
-  lastScrollY.current = window.scrollY;
-};
-  
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    const controlNavbar = () => {
+      if (window.scrollY > lastScrollYRef.current && window.scrollY > 300) {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+      lastScrollYRef.current = window.scrollY;
+    };
+
+    window.addEventListener("scroll", controlNavbar);
     return () => {
-      window.removeEventListener("scroll", handleScroll); // Clean up the event listener
+      window.removeEventListener("scroll", controlNavbar);
     };
   }, []);
 
   return (
-    <Nav isHidden={isHidden}>
+    <Nav style={{ top: showNavbar ? "0" : "-80px" }}>
       <NavbarContainer>
         <NavLogo to="/">
           <ColorText>&lt;</ColorText>
@@ -213,6 +207,7 @@ const handleScroll = () => {
         )}
 
         <ButtonContainer>
+          <ThemeToggle isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
           <GithubButton href={Bio.github} target="_Blank">
             Github Profile
           </GithubButton>

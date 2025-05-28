@@ -1,23 +1,33 @@
 export const darkTheme = {
-  bg: "#FEFEF ",
-  bgLight: "#f0f0f0",
-  primary: "#d9534f", // Smooth red for buttons
-  text_primary: "#111111",
-  text_secondary: "#48494a",
-  card: "#FFFFFF", 
-  card_light: "#fdf1e3",
-  button: "#d9534f",
+  bg: "#1C1C27",
+  bgLight: "#1C1E27",
+  primary: "#ff5f5f",
+  primary_light: "#ff7f7f",
+  secondary: "#7077A1",
+  text_primary: "#F2F3F4",
+  text_secondary: "#b1b2b3",
+  card: "#171721",
+  card_light: "#191924",
+  button: "#ff5f5f",
   white: "#FFFFFF",
   black: "#000000",
+  success: "#57CA22",
+  error: "#FF1943",
 };
 
 export const lightTheme = {
   bg: "#FFFFFF",
   bgLight: "#f0f0f0",
-  primary: "#d9534f", // Smooth red for buttons
+  primary: "#ff5f5f",
+  primary_light: "#ff7f7f",
+  secondary: "#7077A1",
   text_primary: "#111111",
   text_secondary: "#48494a",
-  card: "#fef5e7", // Creamy white card
-  card_light: "#fdf1e3",
-  button: "#d9534f",
+  card: "#FFFFFF",
+  card_light: "#f7f7f7",
+  button: "#ff5f5f",
+  white: "#FFFFFF",
+  black: "#000000",
+  success: "#2E7D32",
+  error: "#D32F2F",
 };

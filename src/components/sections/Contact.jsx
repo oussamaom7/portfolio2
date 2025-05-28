@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import EarthCanvas from "../canvas/Earth";
+import { motion } from "framer-motion";
 
 const Container = styled.div`
   display: flex;
@@ -131,45 +132,153 @@ const ContactButton = styled.input`
   }
 `;
 
+const ErrorText = styled.p`
+  color: ${({ theme }) => theme.error};
+  font-size: 14px;
+  margin-top: 4px;
+`;
+
+const SuccessText = styled.p`
+  color: ${({ theme }) => theme.success};
+  font-size: 14px;
+  margin-top: 4px;
+`;
+
 const Contact = () => {
   const form = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const formData = new FormData(form.current);
+    const newErrors = {};
+
+    if (!formData.get("from_email").trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.get("from_email"))) {
+      newErrors.email = "Please enter a valid email";
+    }
+
+    if (!formData.get("from_name").trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!formData.get("message").trim()) {
+      newErrors.message = "Message is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    emailjs
-      .sendForm(
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      await emailjs.sendForm(
         "service_tox7kqs",
         "template_nv7k7mj",
         form.current,
         "SybVGsYS52j2TfLbi"
-      )
-      .then(
-        (result) => {
-          alert("Message Sent");
-          form.current.reset(); // Fixed the typo here
-        },
-        (error) => {
-          alert(error);
-        }
       );
+
+      setSubmitStatus("success");
+      form.current.reset();
+      setErrors({});
+    } catch (error) {
+      setSubmitStatus("error");
+      console.error("Error sending email:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <Container>
+    <Container id="Contact">
       <Wrapper>
-        <Title>Contact</Title>
-        <Desc>
-          Feel free to reach out to me for any questions or opportunities!
-        </Desc>
-        <ContactForm onSubmit={handleSubmit} ref={form}>
-          <ContactTitle>Email Me 🚀</ContactTitle>
-          <ContactInput placeholder="Your Email" name="from_email" />
-          <ContactInput placeholder="Your Name" name="from_name" />
-          <ContactInput placeholder="Subject" name="subject" />
-          <ContactInputMessage placeholder="Message" name="message" rows={4} />
-          <ContactButton type="submit" value="Send" />
-        </ContactForm>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Title>Contact</Title>
+          <Desc>
+            Feel free to reach out to me for any questions or opportunities!
+          </Desc>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <ContactForm onSubmit={handleSubmit} ref={form}>
+            <ContactTitle>Email Me 🚀</ContactTitle>
+
+            <div>
+              <ContactInput
+                placeholder="Your Email"
+                name="from_email"
+                type="email"
+                disabled={isSubmitting}
+              />
+              {errors.email && <ErrorText>{errors.email}</ErrorText>}
+            </div>
+
+            <div>
+              <ContactInput
+                placeholder="Your Name"
+                name="from_name"
+                disabled={isSubmitting}
+              />
+              {errors.name && <ErrorText>{errors.name}</ErrorText>}
+            </div>
+
+            <ContactInput
+              placeholder="Subject"
+              name="subject"
+              disabled={isSubmitting}
+            />
+
+            <div>
+              <ContactInputMessage
+                placeholder="Message"
+                rows="4"
+                name="message"
+                disabled={isSubmitting}
+              />
+              {errors.message && <ErrorText>{errors.message}</ErrorText>}
+            </div>
+
+            <ContactButton
+              type="submit"
+              value={isSubmitting ? "Sending..." : "Send"}
+              disabled={isSubmitting}
+            />
+
+            {submitStatus === "success" && (
+              <SuccessText>Message sent successfully!</SuccessText>
+            )}
+            {submitStatus === "error" && (
+              <ErrorText>Failed to send message. Please try again.</ErrorText>
+            )}
+          </ContactForm>
+        </motion.div>
       </Wrapper>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        style={{ position: "absolute", right: 0, bottom: 0 }}
+      >
+        <EarthCanvas />
+      </motion.div>
     </Container>
   );
 };

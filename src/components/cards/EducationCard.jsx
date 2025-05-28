@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { VerticalTimelineElement } from "react-vertical-timeline-component";
+import { darkTheme } from "../../utils/Themes";
 
 const Top = styled.div`
   width: 100%;
@@ -26,7 +27,7 @@ const Body = styled.div`
 const Name = styled.div`
   font-size: 18px;
   font-weight: 600;
-  color: ${({ theme }) => theme.text_primary}; /* Dark text for readability */
+  color: ${({ theme }) => theme.text_primary};
 
   @media only screen and (max-width: 768px) {
     font-size: 14px;
@@ -45,17 +46,8 @@ const Date = styled.div`
   font-size: 12px;
   font-weight: 400;
   color: ${({ theme }) => theme.text_secondary + 80};
-
   @media only screen and (max-width: 768px) {
     font-size: 10px;
-  }
-`;
-const Grade = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text_secondary};
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
   }
 `;
 
@@ -71,7 +63,9 @@ const Description = styled.div`
 `;
 const Span = styled.div``;
 
-const EducationCard = ({ education }) => {
+const EducationCard = ({ education, theme }) => {
+  const isDarkTheme = theme === darkTheme;
+
   return (
     <VerticalTimelineElement
       icon={
@@ -87,14 +81,17 @@ const EducationCard = ({ education }) => {
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        background: "#FFFFFF", // White card
-        color: "#111111", // Dark text
-        boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 24px", // Subtle shadow
-        border: "1px solid rgba(0, 0, 0, 0.1)",
-        borderRadius: "6px",
+        background: theme.card,
+        color: theme.text_primary,
+        boxShadow: isDarkTheme 
+          ? "rgba(23, 92, 230, 0.15) 0px 4px 24px"
+          : "rgba(23, 92, 230, 0.1) 0px 4px 24px",
+        border: `1px solid ${isDarkTheme ? theme.card_light : theme.bgLight}`,
+        borderRadius: "12px",
+        backdropFilter: "blur(4px)",
       }}
       contentArrowStyle={{
-        borderRight: "7px solid #FFFFFF", // White arrow
+        borderRight: `7px solid ${theme.card}`,
       }}
       date={education.date}
     >

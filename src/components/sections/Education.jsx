@@ -4,15 +4,17 @@ import { education } from "../../data/constants";
 import EducationCard from "../cards/EducationCard";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
+import { useThemeContext } from "../../utils/ThemeContext";
+import { darkTheme, lightTheme } from "../../utils/Themes";
 
 const Container = styled.div`
-margin-top: 100px;
-display: flex;
-flex-direction: column;
-justify-content-center;
-position: relative;
-z-index: 1;
-align-items: center;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  align-items: center;
 `;
 const Wrapper = styled.div`
   position: relative;
@@ -51,6 +53,8 @@ const Desc = styled.div`
 `;
 
 const Education = () => {
+  const { isDarkTheme } = useThemeContext();
+
   return (
     <Container id="Education">
       <Wrapper>
@@ -64,9 +68,13 @@ const Education = () => {
           educational details are as follows.
         </Desc>
 
-        <VerticalTimeline>
+        <VerticalTimeline lineColor={isDarkTheme ? "#ff5f5f20" : "#ff5f5f10"}>
           {education.map((education, index) => (
-            <EducationCard key={`education-${index}`} education={education} />
+            <EducationCard
+              key={`education-${index}`}
+              education={education}
+              theme={isDarkTheme ? darkTheme : lightTheme}
+            />
           ))}
         </VerticalTimeline>
       </Wrapper>

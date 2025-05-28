@@ -3,15 +3,7 @@ import styled from "styled-components";
 import { Bio } from "../../data/constants";
 import Typewriter from "typewriter-effect";
 import HeroImg from "../../images/hero.jpg";
-import HeroBgAnimation from "../HeroBgAnimation";
 import { Tilt } from "react-tilt";
-import { motion } from "framer-motion";
-import {
-  headContainerAnimation,
-  headContentAnimation,
-  headTextAnimation,
-} from "../../utils/motion";
-import StarCanvas from "../canvas/Stars";
 
 const HeroContainer = styled.div`
   display: flex;
@@ -175,8 +167,7 @@ const ResumeButton = styled.a`
   }
 `;
 
-
-const Img = styled.img`
+const HeroImage = styled.img`
   border-radius: 50%;
   width: 100%;
   height: 100%;
@@ -190,27 +181,21 @@ const Img = styled.img`
   }
 `;
 
-const HeroBg = styled.div`
-  position: absolute;
+const SocialMediaIcons = styled.div`
   display: flex;
-  justify-content: end;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  max-width: 1360px;
-  overflow: hidden;
-  padding: 0 30px;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+  gap: 16px;
+  margin-top: 16px;
+  align-items: center;
+`;
 
-  @media (max-width: 960px) {
-    justify-content: center;
-    padding: 0 0px;
+const SocialMediaIcon = styled.a`
+  color: ${({ theme }) => theme.text_primary};
+  font-size: 24px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+    transform: translateY(-3px);
   }
 `;
 
@@ -218,49 +203,51 @@ const Hero = () => {
   return (
     <div id="About">
       <HeroContainer>
-        <HeroBg>
-          <StarCanvas />
-          <HeroBgAnimation />
-        </HeroBg>
+        <HeroInnerContainer>
+          <HeroLeftContainer>
+            <Title>
+              Hi, I am <br /> {Bio.name}
+            </Title>
+            <TextLoop>
+              I am a
+              <Span>
+                <Typewriter
+                  options={{
+                    strings: Bio.roles,
+                    autoStart: true,
+                    loop: true,
+                  }}
+                />
+              </Span>
+            </TextLoop>
+            <SubTitle>{Bio.description}</SubTitle>
+            <SocialMediaIcons>
+              <SocialMediaIcon
+                href={Bio.github}
+                target="_blank"
+                aria-label="GitHub"
+              >
+                <i className="fab fa-github"></i>
+              </SocialMediaIcon>
+              <SocialMediaIcon
+                href={Bio.linkedin}
+                target="_blank"
+                aria-label="LinkedIn"
+              >
+                <i className="fab fa-linkedin"></i>
+              </SocialMediaIcon>
+            </SocialMediaIcons>
+            <ResumeButton href={Bio.resume} target="_blank">
+              Check Resume
+            </ResumeButton>
+          </HeroLeftContainer>
 
-        <motion.div {...headContainerAnimation}>
-          <HeroInnerContainer>
-            <HeroLeftContainer>
-              <motion.div {...headTextAnimation}>
-                <Title>
-                  Hi, I am <br /> {Bio.name}
-                </Title>
-                <TextLoop>
-                  I am a
-                  <Span>
-                    <Typewriter
-                      options={{
-                        strings: Bio.roles,
-                        autoStart: true,
-                        loop: true,
-                      }}
-                    />
-                  </Span>
-                </TextLoop>
-              </motion.div>
-
-              <motion.div {...headContentAnimation}>
-                <SubTitle>{Bio.description}</SubTitle>
-              </motion.div>
-
-              <ResumeButton href={Bio.resume} target="_blank">
-                Check Resume
-              </ResumeButton>
-            </HeroLeftContainer>
-            <HeroRightContainer>
-              <motion.div {...headContentAnimation}>
-                <Tilt>
-                  <Img src={HeroImg} alt="Oussama Maache" />
-                </Tilt>
-              </motion.div>
-            </HeroRightContainer>
-          </HeroInnerContainer>
-        </motion.div>
+          <HeroRightContainer>
+            <Tilt options={{ max: 20, scale: 1.05 }}>
+              <HeroImage src={HeroImg} alt="Oussama Maache" />
+            </Tilt>
+          </HeroRightContainer>
+        </HeroInnerContainer>
       </HeroContainer>
     </div>
   );

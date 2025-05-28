@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { skills } from "../../data/constants";
-import { Tilt } from "react-tilt";
 
 const Container = styled.div`
   display: flex;
@@ -52,42 +51,27 @@ const SkillsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
-  gap: 50px;
+  margin-top: 30px;
+  gap: 30px;
   justify-content: center;
 `;
 
 const Skill = styled.div`
   width: 100%;
   max-width: 500px;
-  background-color: ${({ theme }) => theme.white};  // White background
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid ${({ theme }) => theme.primary + 20};
   box-shadow: rgba(23, 92, 230, 0.15) 0px 4px 24px;
   border-radius: 16px;
   padding: 18px 36px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    box-shadow: rgba(255, 99, 71, 0.2) 0px 10px 40px;  // Smooth red hover effect
-  }
-
-  @media (max-width: 768px) {
-    max-width: 400px;
-    padding: 10px 36px;
-  }
-
-  @media (max-width: 500px) {
-    max-width: 330px;
-    padding: 10px 36px;
-  }
 `;
 
-const SkillTitle = styled.div`
+const SkillTitle = styled.h3`
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 20px;
   text-align: center;
-  color: ${({ theme }) => theme.text_secondary};
+  color: ${({ theme }) => theme.text_primary};
 `;
 
 const SkillList = styled.div`
@@ -99,29 +83,18 @@ const SkillList = styled.div`
 `;
 
 const SkillItem = styled.div`
-  font-size: 16px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_primary + 80};
-  border: 1px solid ${({ theme }) => theme.text_primary + 80};
-  border-radius: 12px;
-  padding: 12px 16px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-  
-  @media (max-width: 500px) {
-    font-size: 14px;
-    padding: 6px 12px;
-  }
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.card};
+  color: ${({ theme }) => theme.text_primary};
+  font-size: 16px;
+  font-weight: 400;
 
   &:hover {
-    background-color: ${({ theme }) => theme.primary + 10};  // Light red on hover
+    background: ${({ theme }) => theme.primary + 10};
   }
 `;
 
@@ -135,29 +108,23 @@ const Skills = () => {
     <Container id="Skills">
       <Wrapper>
         <Title>Skills</Title>
-        <Desc
-          style={{
-            marginBottom: "40px",
-          }}
-        >
-          Here are some of my skills on which I have been working on for the past 3 years.
+        <Desc>
+          Here are some of my skills on which I have been working for the past 3
+          years.
         </Desc>
-
         <SkillsContainer>
           {skills.map((skill, index) => (
-            <Tilt key={index}>
-              <Skill>
-                <SkillTitle>{skill.title}</SkillTitle>
-                <SkillList>
-                  {skill.skills.map((item, index_x) => (
-                    <SkillItem key={`skill-x-${index_x}`}>
-                      <SkillImage src={item.image} />
-                      {item.name}
-                    </SkillItem>
-                  ))}
-                </SkillList>
-              </Skill>
-            </Tilt>
+            <Skill key={index}>
+              <SkillTitle>{skill.title}</SkillTitle>
+              <SkillList>
+                {skill.skills.map((item, index) => (
+                  <SkillItem key={index}>
+                    <SkillImage src={item.image} alt={item.name} />
+                    {item.name}
+                  </SkillItem>
+                ))}
+              </SkillList>
+            </Skill>
           ))}
         </SkillsContainer>
       </Wrapper>

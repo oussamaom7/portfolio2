@@ -1,24 +1,23 @@
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme } from "./utils/Themes";
+import { darkTheme, lightTheme } from "./utils/Themes";
 import Navbar from "./components/Navbar";
 import { BrowserRouter } from "react-router-dom";
 import Hero from "./components/sections/Hero";
 import Skills from "./components/sections/Skills";
-import StarCanvas from "./components/canvas/Stars";
-import { AnimatePresence } from "framer-motion";
 import Education from "./components/sections/Education";
 import Experience from "./components/sections/Experience";
 import Projects from "./components/sections/Projects";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/sections/Footer";
 import ProjectDetails from "./components/Dialog/ProjectDetails";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
   width: 100%;
   overflow-x: hidden;
   position: relative;
+  transition: all 0.3s ease;
 `;
 
 const Wrapper = styled.div`
@@ -39,34 +38,41 @@ const Wrapper = styled.div`
 
 function App() {
   const [openModal, setOpenModal] = useState({ state: false, project: null });
-  return (
-    <ThemeProvider theme={darkTheme}>
-      <BrowserRouter>
-        <Navbar />
-        <Body>
-          <StarCanvas />
-          <AnimatePresence>
-            <div>
-              <Hero />
-              <Wrapper>
-                <Skills />
-                <Experience />
-              </Wrapper>
-              <Projects openModal={openModal} setOpenModal={setOpenModal} />
-              <Wrapper>
-                <Education />
-                <Contact />
-              </Wrapper>
-              <Footer />
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : true; // Default to dark theme
+  });
 
-              {openModal.state && (
-                <ProjectDetails
-                  openModal={openModal}
-                  setOpenModal={setOpenModal}
-                />
-              )}
-            </div>
-          </AnimatePresence>
+  useEffect(() => {
+    localStorage.setItem("theme", isDarkTheme ? "dark" : "light");
+  }, [isDarkTheme]);
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
+  return (
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <BrowserRouter>
+        <Navbar isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
+        <Body>
+          <div>
+            <Hero />
+            <Wrapper>
+              <Skills />
+              <Experience />
+            </Wrapper>
+            <Projects openModal={openModal} setOpenModal={setOpenModal} />
+            <Wrapper>
+              <Education />
+              <Contact />
+            </Wrapper>
+            <Footer />
+
+            {openModal.state && (
+              <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />
+            )}
+          </div>
         </Body>
       </BrowserRouter>
     </ThemeProvider>

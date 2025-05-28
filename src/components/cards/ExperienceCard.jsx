@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { VerticalTimelineElement } from "react-vertical-timeline-component";
+import { motion } from "framer-motion";
 
-const Top = styled.div`
+const Top = styled(motion.div)`
   width: 100%;
   display: flex;
   max-width: 100%;
@@ -13,6 +14,12 @@ const Image = styled.img`
   height: 50px;
   border-radius: 10px;
   margin-top: 4px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   @media only screen and (max-width: 768px) {
     height: 40px;
@@ -29,6 +36,11 @@ const Role = styled.div`
   font-size: 18px;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
 
   @media only screen and (max-width: 768px) {
     font-size: 14px;
@@ -61,14 +73,10 @@ const Description = styled.div`
   font-weight: 400;
   color: ${({ theme }) => theme.text_primary};
   margin-bottom: 10px;
+
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
-`;
-
-const Span = styled.div`
-  display: -webkit-box;
-  max-width: 100%;
 `;
 
 const Skills = styled.div`
@@ -78,50 +86,63 @@ const Skills = styled.div`
   margin-top: -10px;
 `;
 
-const Skill = styled.div`
-  font-size: 15px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_primary};
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
-
 const ItemWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 `;
 
+const Skill = styled(motion.span)`
+  font-size: 15px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.text_primary + 99};
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.primary + 10};
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primary + 20};
+    transform: translateY(-2px);
+  }
+
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+`;
+
 const ExperienceCard = ({ experience }) => {
   return (
     <VerticalTimelineElement
       icon={
-        <img
-          width="100%"
-          height="100%"
+        <Image
+          src={experience.img}
           alt={experience.company}
           style={{ borderRadius: "50%", objectFit: "cover" }}
-          src={experience.img}
         />
       }
       contentStyle={{
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        background: "#FFFFFF", // White card
-        color: "#111111", // Dark text
-        boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 24px", // Subtle shadow
-        border: "1px solid rgba(0, 0, 0, 0.1)",
-        borderRadius: "6px",
+        background: "rgba(255, 255, 255, 0.05)",
+        color: "#000",
+        boxShadow: "rgba(23, 92, 230, 0.15) 0px 4px 24px",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        borderRadius: "12px",
+        backdropFilter: "blur(4px)",
       }}
       contentArrowStyle={{
-        borderRight: "7px solid #FFFFFF", // White arrow
+        borderRight: "7px solid rgba(255, 255, 255, 0.05)",
       }}
       date={experience.date}
     >
-      <Top>
-        <Image src={experience.img} />
+      <Top
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Image src={experience.img} alt={experience.company} />
         <Body>
           <Role>{experience.role}</Role>
           <Company>{experience.company}</Company>
@@ -129,15 +150,22 @@ const ExperienceCard = ({ experience }) => {
         </Body>
       </Top>
       <Description>
-        {experience?.desc && <Span>{experience?.desc}</Span>}
-        {experience?.skills && (
+        {experience.desc}
+        {experience.skills && (
           <>
             <br />
             <Skills>
               <b>Skills:</b>
               <ItemWrapper>
-                {experience?.skills?.map((skill, index) => (
-                  <Skill key={index}>• {skill}</Skill>
+                {experience.skills.map((skill, index) => (
+                  <Skill
+                    key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2, delay: index * 0.1 }}
+                  >
+                    • {skill}
+                  </Skill>
                 ))}
               </ItemWrapper>
             </Skills>

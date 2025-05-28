@@ -3,6 +3,7 @@ import td from '../images/todo.png';
 import SPA from '../images/Stock_price_app.png';
 import BB from '../images/basket.png';
 import Imagen from '../images/imagen.png';
+import CharityApp from '../images/charityapp.png';
 export const Bio = {
   name: "Oussama Maache",
   roles: [
@@ -196,10 +197,10 @@ export const skills = [
 export const experiences = [
   {
     id: 1,
-    img: "https://media.licdn.com/dms/image/v2/D4E0BAQF-wKyoJhfryQ/company-logo_200_200/company-logo_200_200/0/1724126149262?e=1747872000&v=beta&t=rPp0BUwZ9y8T99VqCBGwEvWcfD3XwPcDUHuTgxybDl4",
+    img: "https://media.licdn.com/dms/image/v2/D4E0BAQGMgO9-3iWbfg/company-logo_200_200/B4EZbLXn8uGQAM-/0/1747168690955/fanous_prod_logo?e=1753920000&v=beta&t=hxVwvDNLHbfOFwNMYYMg_FKKTQb8D0Hme2V6aZOmF0E",
     role: "Full Stack Intern",
     company: "Fanous Prod",
-    date: "Junuary 2024 - April 2024",
+    date: "Junuary 2024 - June 2024",
     desc: " During my internship at Fanus Prod, an agency specializing in antiquities, I led a team of three developers in creating websites for events using the MERN stack. I ensured the project's success by addressing challenges proactively and applying Agile/Scrum methodologies with tools like Clickup and Asana. I worked on the frontend using JavaScript, React.js, Redux, HTML5, and CSS3, and on the backend with Node.js, Express.js, and RESTful APIs. Additionally, I incorporated real-time communication with Socket.io and managed version control with Git and GitHub.",
     skills: [
       "ReactJS",
@@ -216,7 +217,7 @@ export const experiences = [
   },
   {
     id: 0,
-    img: "https://media.licdn.com/dms/image/v2/D4E0BAQEH3MsVzjYIRA/company-logo_200_200/company-logo_200_200/0/1715792270971/arkx_education_logo?e=1747872000&v=beta&t=SsBVG5tSQV_2oEgP4pL3wrQrJRI62MDmkrwVIzrXoF8",
+    img: "https://media.licdn.com/dms/image/v2/D4E0BAQEH3MsVzjYIRA/company-logo_200_200/company-logo_200_200/0/1715792270971/arkx_education_logo?e=1753920000&v=beta&t=8IYRglhhTOtkeQMvq9m8wsWhjqMEOcIT4Hf7d51Y8so",
     role: "Mern Stack Intern",
     company: "ARK-X Fatory",
     date: "June 2023 - Junuary 2024",
@@ -239,7 +240,7 @@ export const experiences = [
 export const education = [
   {
     id: 0,
-    img: "https://media.licdn.com/dms/image/v2/D4E0BAQGU1We9ZIRRew/company-logo_200_200/company-logo_200_200/0/1695133014276/ecole_marocaine_des_sciences_de_lingnieur_logo?e=1747872000&v=beta&t=9S-QERpFlaLskAiJwoGDS9lRh9jhwLjArOuQiN1jFvc",
+    img: "https://media.licdn.com/dms/image/v2/D4E0BAQE_Fu9hueUY4g/company-logo_200_200/B4EZZsp0_oHEAM-/0/1745579626980/ecole_marocaine_des_sciences_de_lingnieur_logo?e=1753920000&v=beta&t=I0wJRev5KkEZrTP68NQ5SyXsjTrxVTmDKKgiyIm35L8",
     school: "Moroccan School of Engineering Sciences",
     date: "2024 - 2026",
     desc: "Currently pursuing my fourth year in Software Engineering and Networking, focusing on developing advanced skills in software development, network architecture, and system integration. The curriculum emphasizes practical problem-solving, agile methodologies, and the application of engineering principles in designing scalable software and secure network solutions.",
@@ -282,15 +283,13 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Whatsapp Clone",
-    date: "",
-    description:
-      "A WhatsApp clone made with React JS, Firebase, and Material UI. It has Phone Authentication, Real-time Database. It has a chat room where users can chat with each other. It has a sidebar where users can see all the chat rooms and can create a new chat room. It has a login page where users can log in with their Google account.",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/whatsapp-clone-rishav.appspot.com/o/Screenshot%20(151).png?alt=media&token=48391593-1ef0-4a8c-a92a-eb82bdf38e89",
-    tags: ["React Js", "Firebase", "Web Socket", "Node JS"],
+    title: "CharityAPP",
+    date: "",    description:
+      "CharityApp is a dynamic web application designed to streamline charitable donations by connecting donors with verified nonprofits. Built with Spring Boot and Java for a robust backend, it integrates MySQL and MongoDB for efficient data management and Thymeleaf for responsive front-end templates. The app utilizes Stripe for secure payment processing, enabling seamless and trustworthy transactions. With real-time donation tracking and an intuitive interface, CharityApp highlights my expertise in full-stack development, database design, payment integration, and user-focused UI/UX.",
+    image: CharityApp,
+    tags: ["Java", "SpringBoot", "MySql", "MongoDB", "Docker", "Stripe_API", "Thymleaf", "Bootstrap"],
     category: "web app",
-    github: "",
+    github: "https://github.com/oussamaom7/CharityApp",
     webapp: "",
   },
   {
