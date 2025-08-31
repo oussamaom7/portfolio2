@@ -60,13 +60,24 @@ const NavItems = styled.ul`
 `;
 
 const NavLink = styled.a`
-  color: ${({ theme }) => theme.text_primary};
+  color: ${({ theme, $active }) => ($active ? theme.primary : theme.text_primary)};
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
   &:hover {
     color: ${({ theme }) => theme.primary};
+  }
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: ${({ $active }) => ($active ? "100%" : "0")};
+    height: 2px;
+    background: ${({ theme }) => theme.primary};
+    transition: width 0.2s ease-in-out;
   }
 `;
 
@@ -134,6 +145,7 @@ const MobileMenu = styled.ul`
 
 const Navbar = ({ isDarkTheme, toggleTheme }) => {  const [isOpen, setIsOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
+  const [activeSection, setActiveSection] = useState("about");
   const theme = useTheme();
   const lastScrollYRef = useRef(0);
 
@@ -153,14 +165,51 @@ const Navbar = ({ isDarkTheme, toggleTheme }) => {  const [isOpen, setIsOpen] = 
     };
   }, []);
 
+  // IntersectionObserver to highlight active nav link
+  useEffect(() => {
+    const ids = ["home", "about", "skills", "experience", "projects", "education", "contact"];
+    const sections = ids
+      .map((id) => ({ id, el: document.getElementById(id) }))
+      .filter((s) => s.el);
+
+    if (sections.length === 0) return;
+
+    let current = activeSection;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the most visible section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0));
+        if (visible.length > 0) {
+          const id = visible[0].target.id;
+          if (id && id !== current) {
+            current = id;
+            setActiveSection(id);
+          }
+        }
+      },
+      {
+        root: null,
+        // Trigger when ~30% visible, with some top/bottom margin to avoid early switches
+        threshold: [0.3, 0.6, 0.9],
+        rootMargin: "-20% 0px -40% 0px",
+      }
+    );
+
+    sections.forEach(({ el }) => observer.observe(el));
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Nav style={{ top: showNavbar ? "0" : "-80px" }}>
       <NavbarContainer>
         <NavLogo to="/">
           <ColorText>&lt;</ColorText>
-          <span style={{ color: theme.black }}>Oussama</span>
+          <span style={{ color: theme.text_primary }}>Oussama</span>
           <div style={{ color: theme.primary }}>/</div>
-          <span style={{ color: theme.black }}>Maache</span>
+          <span style={{ color: theme.text_primary }}>Maache</span>
           <ColorText>&gt;</ColorText>
         </NavLogo>
 
@@ -169,28 +218,28 @@ const Navbar = ({ isDarkTheme, toggleTheme }) => {  const [isOpen, setIsOpen] = 
         </MobileIcon>
 
         <NavItems>
-          <NavLink href="#About">About</NavLink>
-          <NavLink href="#Skills">Skills</NavLink>
-          <NavLink href="#Experience">Experience</NavLink>
-          <NavLink href="#Projects">Projects</NavLink>
-          <NavLink href="#Education">Education</NavLink>
+          <NavLink href="#about" $active={activeSection === "about"} aria-current={activeSection === "about" ? "page" : undefined}>About</NavLink>
+          <NavLink href="#skills" $active={activeSection === "skills"} aria-current={activeSection === "skills" ? "page" : undefined}>Skills</NavLink>
+          <NavLink href="#experience" $active={activeSection === "experience"} aria-current={activeSection === "experience" ? "page" : undefined}>Experience</NavLink>
+          <NavLink href="#projects" $active={activeSection === "projects"} aria-current={activeSection === "projects" ? "page" : undefined}>Projects</NavLink>
+          <NavLink href="#education" $active={activeSection === "education"} aria-current={activeSection === "education" ? "page" : undefined}>Education</NavLink>
         </NavItems>
 
         {isOpen && (
           <MobileMenu isOpen={isOpen}>
-            <NavLink onClick={() => setIsOpen(!isOpen)} href="#About">
+            <NavLink onClick={() => setIsOpen(!isOpen)} href="#about" $active={activeSection === "about"} aria-current={activeSection === "about" ? "page" : undefined}>
               About
             </NavLink>
-            <NavLink onClick={() => setIsOpen(!isOpen)} href="#Skills">
+            <NavLink onClick={() => setIsOpen(!isOpen)} href="#skills" $active={activeSection === "skills"} aria-current={activeSection === "skills" ? "page" : undefined}>
               Skills
             </NavLink>
-            <NavLink onClick={() => setIsOpen(!isOpen)} href="#Experience">
+            <NavLink onClick={() => setIsOpen(!isOpen)} href="#experience" $active={activeSection === "experience"} aria-current={activeSection === "experience" ? "page" : undefined}>
               Experience
             </NavLink>
-            <NavLink onClick={() => setIsOpen(!isOpen)} href="#Projects">
+            <NavLink onClick={() => setIsOpen(!isOpen)} href="#projects" $active={activeSection === "projects"} aria-current={activeSection === "projects" ? "page" : undefined}>
               Projects
             </NavLink>
-            <NavLink onClick={() => setIsOpen(!isOpen)} href="#Education">
+            <NavLink onClick={() => setIsOpen(!isOpen)} href="#education" $active={activeSection === "education"} aria-current={activeSection === "education" ? "page" : undefined}>
               Education
             </NavLink>
             <GithubButton

@@ -77,11 +77,11 @@ const Divider = styled.div`
 `;
 
 const CardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 28px;
-  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
 `;
 
 const SearchInput = styled.input`

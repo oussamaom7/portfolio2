@@ -56,7 +56,7 @@ const Education = () => {
   const { isDarkTheme } = useThemeContext();
 
   return (
-    <Container id="Education">
+    <Container id="education">
       <Wrapper>
         <Title>Education</Title>
         <Desc

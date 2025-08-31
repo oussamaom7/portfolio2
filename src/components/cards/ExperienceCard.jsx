@@ -83,7 +83,8 @@ const Skills = styled.div`
   width: 100%;
   display: flex;
   gap: 12px;
-  margin-top: -10px;
+  margin-top: 8px;
+  align-items: center;
 `;
 
 const ItemWrapper = styled.div`
@@ -118,7 +119,13 @@ const ExperienceCard = ({ experience }) => {
         <Image
           src={experience.img}
           alt={experience.company}
+          loading="lazy"
+          decoding="async"
           style={{ borderRadius: "50%", objectFit: "cover" }}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wwAAgMBApB2xH8AAAAASUVORK5CYII=";
+          }}
         />
       }
       contentStyle={{
@@ -142,36 +149,40 @@ const ExperienceCard = ({ experience }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Image src={experience.img} alt={experience.company} />
+        <Image
+          src={experience.img}
+          alt={experience.company}
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wwAAgMBApB2xH8AAAAASUVORK5CYII=";
+          }}
+        />
         <Body>
           <Role>{experience.role}</Role>
           <Company>{experience.company}</Company>
           <Date>{experience.date}</Date>
         </Body>
       </Top>
-      <Description>
-        {experience.desc}
-        {experience.skills && (
-          <>
-            <br />
-            <Skills>
-              <b>Skills:</b>
-              <ItemWrapper>
-                {experience.skills.map((skill, index) => (
-                  <Skill
-                    key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, delay: index * 0.1 }}
-                  >
-                    • {skill}
-                  </Skill>
-                ))}
-              </ItemWrapper>
-            </Skills>
-          </>
-        )}
-      </Description>
+      <Description>{experience.desc}</Description>
+      {experience.skills && (
+        <Skills>
+          <b>Skills:</b>
+          <ItemWrapper>
+            {experience.skills.map((skill, index) => (
+              <Skill
+                key={index}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.2, delay: index * 0.1 }}
+              >
+                • {skill}
+              </Skill>
+            ))}
+          </ItemWrapper>
+        </Skills>
+      )}
     </VerticalTimelineElement>
   );
 };

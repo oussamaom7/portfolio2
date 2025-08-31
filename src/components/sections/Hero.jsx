@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Bio } from "../../data/constants";
 import Typewriter from "typewriter-effect";
-import HeroImg from "../../images/hero.jpg";
 import { Tilt } from "react-tilt";
 
 const HeroContainer = styled.section`
@@ -252,7 +251,20 @@ const Hero = () => {
 
         <HeroRightContainer>
           <Tilt options={{ max: 20, scale: 1.05 }}>
-            <HeroImage src={HeroImg} alt="Oussama Maache" />
+            <picture>
+              <HeroImage
+                src={process.env.PUBLIC_URL + "/hero.jpg"}
+                alt="Oussama Maache"
+                loading="lazy"
+                decoding="async"
+                width="400"
+                height="400"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "https://placehold.co/400x400?text=Profile&font=roboto";
+                }}
+              />
+            </picture>
           </Tilt>
         </HeroRightContainer>
       </HeroInnerContainer>

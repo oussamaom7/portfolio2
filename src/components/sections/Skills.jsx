@@ -105,7 +105,7 @@ const SkillImage = styled.img`
 
 const Skills = () => {
   return (
-    <Container id="Skills">
+    <Container id="skills">
       <Wrapper>
         <Title>Skills</Title>
         <Desc>
@@ -119,7 +119,18 @@ const Skills = () => {
               <SkillList>
                 {skill.skills.map((item, index) => (
                   <SkillItem key={index}>
-                    <SkillImage src={item.image} alt={item.name} />
+                    <SkillImage
+                      src={item.image}
+                      alt={item.name}
+                      loading="lazy"
+                      decoding="async"
+                      width={24}
+                      height={24}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wwAAgMBApB2xH8AAAAASUVORK5CYII=";
+                      }}
+                    />
                     {item.name}
                   </SkillItem>
                 ))}

@@ -75,6 +75,7 @@ const ContactTitle = styled.div`
 `;
 
 const ContactInput = styled.input`
+  width: 100%;
   flex: 1;
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.text_secondary + 50};
@@ -89,6 +90,7 @@ const ContactInput = styled.input`
 `;
 
 const ContactInputMessage = styled.textarea`
+  width: 100%;
   flex: 1;
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.text_secondary + 50};
@@ -106,28 +108,23 @@ const ContactButton = styled.input`
   width: 100%;
   text-decoration: none;
   text-align: center;
-  background-color: red;
-  background: linear-gradient(
-    225deg,
-    #ff5f5f 0%,
-    #ff2a2a 100%
-  );
+  background: ${({ theme }) => theme.primary};
   padding: 13px 16px;
   margin-top: 2px;
   border-radius: 12px;
   border: none;
-  color: ${({ theme }) => theme.text_primary};
+  color: #ffffff;
   font-size: 18px;
   font-weight: 600;
   transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
 
   &:hover {
-    background-color: #ff2a2a;
+    background: ${({ theme }) => theme.primary_light};
     transform: translateY(-2px);
   }
 
   &:active {
-    background-color: #ff5f5f;
+    background: ${({ theme }) => theme.primary};
     transform: translateY(2px);
   }
 `;
@@ -199,7 +196,7 @@ const Contact = () => {
   };
 
   return (
-    <Container id="Contact">
+    <Container id="contact">
       <Wrapper>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
