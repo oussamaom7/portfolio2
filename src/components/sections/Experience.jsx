@@ -85,7 +85,7 @@ const Experience = () => {
             animate={false}
             lineColor="rgba(255, 95, 95, 0.2)"
           >
-            {experiences.map((experience, index) => (
+            {(experiences || []).map((experience, index) => (
               <ExperienceCard
                 key={`experience-${index}`}
                 experience={experience}

@@ -69,7 +69,7 @@ const Education = () => {
         </Desc>
 
         <VerticalTimeline lineColor={isDarkTheme ? "#ff5f5f20" : "#ff5f5f10"}>
-          {education.map((education, index) => (
+          {(education || []).map((education, index) => (
             <EducationCard
               key={`education-${index}`}
               education={education}

@@ -168,15 +168,16 @@ const ResumeButton = styled.a`
 
 const HeroImage = styled.img`
   border-radius: 50%;
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 400px;
-  max-height: 400px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border: 2px solid ${({ theme }) => theme.primary};
 
   @media (max-width: 640px) {
     max-width: 280px;
-    max-height: 280px;
   }
 `;
 
@@ -204,7 +205,7 @@ const Hero = () => {
       <HeroInnerContainer>
         <HeroLeftContainer>
           <Title role="heading" aria-level="1">
-            Hi, I am <br /> {Bio.name}
+            Hi, I am <br /> {Bio?.name || ""}
           </Title>
           <TextLoop>
             <span>
@@ -212,7 +213,7 @@ const Hero = () => {
               <Span aria-label="roles">
                 <Typewriter
                   options={{
-                    strings: Bio.roles,
+                    strings: Bio?.roles || [],
                     autoStart: true,
                     loop: true,
                   }}
@@ -220,9 +221,9 @@ const Hero = () => {
               </Span>
             </span>
           </TextLoop>
-          <SubTitle role="paragraph">{Bio.description}</SubTitle>
+          <SubTitle role="paragraph">{Bio?.description || ""}</SubTitle>
           <ResumeButton
-            href={Bio.resume}
+            href={Bio?.resume || "#"}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Download Resume"
@@ -239,7 +240,7 @@ const Hero = () => {
               <i className="fab fa-github"></i>
             </SocialMediaIcon>
             <SocialMediaIcon
-              href={Bio.linkedin}
+              href={Bio?.linkedin || "#"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
@@ -251,20 +252,19 @@ const Hero = () => {
 
         <HeroRightContainer>
           <Tilt options={{ max: 20, scale: 1.05 }}>
-            <picture>
-              <HeroImage
-                src={process.env.PUBLIC_URL + "/hero.jpg"}
-                alt="Oussama Maache"
-                loading="lazy"
-                decoding="async"
-                width="400"
-                height="400"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = "https://placehold.co/400x400?text=Profile&font=roboto";
-                }}
-              />
-            </picture>
+            <HeroImage
+              src={process.env.PUBLIC_URL + "/hero.jpg"}
+              alt="Oussama Maache"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              width="400"
+              height="400"
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAQAAABl9Q8tAAAACXBIWXMAAAsSAAALEgHS3X78AAAAH0lEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAA4HcGygAAd8yq1wAAAABJRU5ErkJggg==";
+              }}
+            />
           </Tilt>
         </HeroRightContainer>
       </HeroInnerContainer>

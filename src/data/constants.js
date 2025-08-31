@@ -3,23 +3,24 @@
 import CharityApp from "../images/charityapp.png";
 import Imagen from "../images/imagen.png";
 import SPA from "../images/Stock_price_app.png";
-import td from "../images/todo.png";
 import Xticket from "../images/xticket.png";
 import BB from "../images/basket.png";
 import Emsi from "../images/emsi.png";
 import Ark from "../images/Arkx.jpeg";
 import fanus from "../images/fanus.jpeg";
+import omia from "../images/omiadata.jpeg";
+import asma from "../images/asmapref.png";
 
 export const Bio = {
   name: "Oussama Maache",
   roles: [
-    "Full Stack Developer",
+    "Software engineer",
   ],
   description:
     "Oussama is a dedicated software engineer and full-stack developer with expertise in building impactful web applications and AI-driven solutions. Skilled in technologies like React, Node.js, and the MERN stack, Oussama thrives in collaborative environments and focuses on delivering high-quality, user-centered solutions. His passion for innovation and problem-solving drives him to help businesses leverage technology to achieve their goals.", 
   github: "https://github.com/oussamaom7",
   resume:
-    "https://drive.google.com/file/d/1bhmGuJ0Jn3yyQgrXK96nxtrUCU8AAM_Q/view?usp=drive_link",
+    "https://drive.google.com/drive/quota?q=type:pdf%20after:2025-08-31",
   linkedin: "https://www.linkedin.com/in/oussama-maache/",
 };
 // Skills and their logos
@@ -202,6 +203,29 @@ export const skills = [
 // experiences
 export const experiences = [
   {
+    id: 2,
+    img: omia,
+    role: "Full Stack Intern",
+    company: "OmiaData",
+    date: "Aout 2025 - September 2025",
+    desc: " During my internship at OmiaData, I gained hands-on experience in the full software development cycle. I started by troubleshooting and fixing a Docker 419 authentication issue, then worked directly with a client to gather requirements and write detailed specifications and conception documents. I designed, developed, and deployed a stock management application, ensuring scalability and reliability. This experience allowed me to strengthen my skills in client communication, requirements engineering, application development, and deployment.",
+    skills: [
+      "Docker",
+      "ReactJS",
+      "NodeJs",
+      "Material UI",
+      "HTML",
+      "CSS",
+      "TypeScript",
+      "MySQL",
+      "Laravel",
+      "JavaScript",
+      "MongoDB",
+      
+    ],
+    doc: "https://firebasestorage.googleapis.com/v0/b/flexi-coding.appspot.com/o/Screenshot%20from%202024-01-25%2022-38-31.png?alt=media&token=2785903f-1a4e-41f5-afd2-6adcfe56d058",
+  },
+  {
     id: 1,
     img: fanus,
     role: "Full Stack Intern",
@@ -264,21 +288,21 @@ export const education = [
 // Projects
 export const projects = [
   {
-    id: 1,
-    title: "Imagen Agency",
+    id: 4,
+    title: " Inventory Management App",
     date: "",
-    subtitle: "Event and portfolio WordPress theme",
+    subtitle: " Inventory Management Application for a nursing home",
     description:
-      "Imagen is a WordPress theme designed for creating visually stunning websites with a focus on photography, events, or portfolios. It offers a modern and clean design, customizable layouts, and mobile responsiveness. With easy integration of event features, Imagen is ideal for creating websites where users can showcase events, galleries, or other content while maintaining a sleek, user-friendly interface.",
-    image: Imagen,
-    imageWebp: "https://placehold.co/800x480?text=Imagen%20Agency&font=roboto&format=webp",
-    tags: ["Wordpress"],
+      " AsmaPref – Stock Management App is a modern stock management application that centralizes product entries and exits, groups operations by voucher, and generates clean, single-PDF documents for each voucher. It provides role-based access, clear reporting, and a streamlined UI for day-to-day warehouse operations. ",
+    image: asma,
+    imageWebp: "https://placehold.co/800x480?text=Todo%20Web%20App&font=roboto&format=webp",
+    tags: ["React Js", "Node JS", "Express Js", "MySql", "Docker", "Redux", "Material UI"],
     category: "web app",
     github: "",
     webapp: "",
-    problem: "Clients needed a flexible site to promote events and showcase galleries without custom coding.",
-    solution: "Built a modular theme with reusable blocks, event templates, and responsive layouts.",
-    impact: "Cut setup time by ~60% for non-technical users; improved Core Web Vitals vs. prior theme.",
+    problem: "Manual stock logs caused inconsistencies and slow reporting.",
+    solution: "Digitized workflows with grouped vouchers, searchable lists, and MySQL-backed APIs; secure access via roles.",
+    impact: "Lower discrepancy rates; quicker decision-making with accurate, real-time inventory views.",
     caseStudy: "",
   },
   {
@@ -318,21 +342,21 @@ export const projects = [
     caseStudy: "",
   },
   {
-    id: 4,
-    title: "Todo Web App",
+    id: 1,
+    title: "Imagen Agency",
     date: "",
-    subtitle: "Task management with calendar and search",
+    subtitle: "Event and portfolio WordPress theme",
     description:
-      " A Todo Web App made with React JS, Redux, and Material UI. It has a login page where users can log in with their Google account. It has a sidebar where users can see all the tasks and can create a new task. It has a calendar where users can see all the tasks on a particular date. It has a search bar where users can search for a particular task.",
-    image: td,
-    imageWebp: "https://placehold.co/800x480?text=Todo%20Web%20App&font=roboto&format=webp",
-    tags: ["React Js", "Node JS"],
+      "Imagen is a WordPress theme designed for creating visually stunning websites with a focus on photography, events, or portfolios. It offers a modern and clean design, customizable layouts, and mobile responsiveness. With easy integration of event features, Imagen is ideal for creating websites where users can showcase events, galleries, or other content while maintaining a sleek, user-friendly interface.",
+    image: Imagen,
+    imageWebp: "https://placehold.co/800x480?text=Imagen%20Agency&font=roboto&format=webp",
+    tags: ["Wordpress"],
     category: "web app",
     github: "",
     webapp: "",
-    problem: "Users needed a simple, fast planner that syncs across devices.",
-    solution: "Optimized list virtualization, added calendar view and full-text search.",
-    impact: "Improved time-to-interaction on low-end devices; increased task completion rates.",
+    problem: "Clients needed a flexible site to promote events and showcase galleries without custom coding.",
+    solution: "Built a modular theme with reusable blocks, event templates, and responsive layouts.",
+    impact: "Cut setup time by ~60% for non-technical users; improved Core Web Vitals vs. prior theme.",
     caseStudy: "",
   },
   {

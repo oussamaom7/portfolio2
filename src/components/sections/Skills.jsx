@@ -113,11 +113,11 @@ const Skills = () => {
           years.
         </Desc>
         <SkillsContainer>
-          {skills.map((skill, index) => (
+          {(skills || []).map((skill, index) => (
             <Skill key={index}>
               <SkillTitle>{skill.title}</SkillTitle>
               <SkillList>
-                {skill.skills.map((item, index) => (
+                {(skill.skills || []).map((item, index) => (
                   <SkillItem key={index}>
                     <SkillImage
                       src={item.image}
