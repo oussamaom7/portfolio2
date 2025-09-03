@@ -17,7 +17,7 @@ export const Bio = {
     "Software engineer",
   ],
   description:
-    "Oussama is a dedicated software engineer and full-stack developer with expertise in building impactful web applications and AI-driven solutions. Skilled in technologies like React, Node.js, and the MERN stack, Oussama thrives in collaborative environments and focuses on delivering high-quality, user-centered solutions. His passion for innovation and problem-solving drives him to help businesses leverage technology to achieve their goals.", 
+    "Oussama Maache is a results-driven software engineer and full-stack developer specializing in creating high-impact web applications and AI-powered solutions. With expertise in the MERN stack, he transforms ideas into seamless, user-centered digital experiences. Known for his problem-solving mindset and innovative approach, Oussama collaborates closely with clients to deliver scalable, high-quality solutions that drive business growth and maximize technological potential.",
   github: "https://github.com/oussamaom7",
   resume:
     "https://drive.google.com/file/d/1HHfq_oQd5usHB98abJ--nP9hzI8dT4IL/view?usp=sharing",
