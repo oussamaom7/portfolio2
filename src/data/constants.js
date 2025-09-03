@@ -20,7 +20,7 @@ export const Bio = {
     "Oussama is a dedicated software engineer and full-stack developer with expertise in building impactful web applications and AI-driven solutions. Skilled in technologies like React, Node.js, and the MERN stack, Oussama thrives in collaborative environments and focuses on delivering high-quality, user-centered solutions. His passion for innovation and problem-solving drives him to help businesses leverage technology to achieve their goals.", 
   github: "https://github.com/oussamaom7",
   resume:
-    "https://drive.google.com/drive/quota?q=type:pdf%20after:2025-08-31",
+    "https://drive.google.com/file/d/1HHfq_oQd5usHB98abJ--nP9hzI8dT4IL/view?usp=sharing",
   linkedin: "https://www.linkedin.com/in/oussama-maache/",
 };
 // Skills and their logos
