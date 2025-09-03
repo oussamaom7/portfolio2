@@ -1,281 +1,130 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import emailjs from "@emailjs/browser";
-import EarthCanvas from "../canvas/Earth";
-import { motion } from "framer-motion";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  gap: 12px;
-  z-index: 1;
   align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, ${({ theme }) => theme.primary_light} 0%, ${({ theme }) => theme.background} 100%);
   @media (max-width: 960px) {
-    padding: 0px;
+    padding: 10px;
   }
 `;
 
 const Wrapper = styled.div`
-  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 1350px;
-  padding: 0px 0px 80px 0px;
-  gap: 12px;
-  @media (max-width: 960px) {
-    flex-direction: column;
+  max-width: 600px;
+  background: ${({ theme }) => theme.card_background || "#ffffff"};
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  gap: 16px;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: translateY(-4px);
+  }
+  @media (max-width: 768px) {
+    padding: 20px;
   }
 `;
 
 const Title = styled.div`
-  font-size: 52px;
+  font-size: 48px;
   text-align: center;
-  font-weight: 600;
-  margin-top: 20px;
+  font-weight: 700;
   color: ${({ theme }) => theme.text_primary};
+  background: linear-gradient(90deg, ${({ theme }) => theme.primary}, ${({ theme }) => theme.primary_light});
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   @media (max-width: 768px) {
-    margin-top: 12px;
     font-size: 32px;
   }
 `;
 
-const Desc = styled.div`
-  font-size: 18px;
-  text-align: center;
-  max-width: 600px;
-  color: ${({ theme }) => theme.text_secondary};
-  @media (max-width: 768px) {
-    margin-top: 12px;
-    font-size: 16px;
-  }
-`;
-
-const ContactForm = styled.form`
-  width: 95%;
-  max-width: 600px;
+const EmailContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  background-color: white;
-  border: 1px solid rgba(255, 255, 255, 0.125);
-  padding: 32px;
-  border-radius: 12px;
-  box-shadow: rgba(23, 92, 230, 0.1) 0px 4px 24px;
-  margin-top: 28px;
+  align-items: center;
   gap: 12px;
-`;
-
-const ContactTitle = styled.div`
-  font-size: 28px;
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.text_primary};
-`;
-
-const ContactInput = styled.input`
-  width: 100%;
-  flex: 1;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.text_secondary + 50};
-  outline: none;
-  font-size: 18px;
-  color: ${({ theme }) => theme.text_primary};
+  background: ${({ theme }) => theme.background};
+  padding: 12px 20px;
   border-radius: 12px;
-  padding: 12px 16px;
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.primary};
+  border: 1px solid ${({ theme }) => theme.primary_light};
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background: ${({ theme }) => theme.primary_light}20;
+    transform: scale(1.02);
   }
 `;
 
-const ContactInputMessage = styled.textarea`
-  width: 100%;
-  flex: 1;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.text_secondary + 50};
-  outline: none;
-  font-size: 18px;
-  color: ${({ theme }) => theme.text_primary};
-  border-radius: 12px;
-  padding: 12px 16px;
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.primary};
-  }
-`;
-
-const ContactButton = styled.input`
-  width: 100%;
+const EmailLink = styled.a`
+  font-size: 24px;
+  color: ${({ theme }) => theme.primary};
   text-decoration: none;
-  text-align: center;
-  background: ${({ theme }) => theme.primary};
-  padding: 13px 16px;
-  margin-top: 2px;
-  border-radius: 12px;
-  border: none;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+  font-weight: 500;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+`;
 
+const CopyButton = styled.button`
+  background: ${({ theme }) => theme.primary};
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
   &:hover {
     background: ${({ theme }) => theme.primary_light};
     transform: translateY(-2px);
   }
-
   &:active {
-    background: ${({ theme }) => theme.primary};
-    transform: translateY(2px);
+    transform: translateY(0);
+  }
+  &:disabled {
+    background: ${({ theme }) => theme.text_secondary};
+    cursor: not-allowed;
   }
 `;
 
-const ErrorText = styled.p`
-  color: ${({ theme }) => theme.error};
+const StatusText = styled.div`
   font-size: 14px;
-  margin-top: 4px;
-`;
-
-const SuccessText = styled.p`
-  color: ${({ theme }) => theme.success};
-  font-size: 14px;
-  margin-top: 4px;
+  color: ${({ theme }) => theme.success || "#2ecc71"};
+  text-align: center;
+  margin-top: 8px;
 `;
 
 const Contact = () => {
-  const form = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-  const [errors, setErrors] = useState({});
+  const [copied, setCopied] = useState(false);
 
-  const validateForm = () => {
-    const formData = new FormData(form.current);
-    const newErrors = {};
-
-    if (!formData.get("from_email").trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.get("from_email"))) {
-      newErrors.email = "Please enter a valid email";
-    }
-
-    if (!formData.get("from_name").trim()) {
-      newErrors.name = "Name is required";
-    }
-
-    if (!formData.get("message").trim()) {
-      newErrors.message = "Message is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      await emailjs.sendForm(
-        "service_tox7kqs",
-        "template_nv7k7mj",
-        form.current,
-        "SybVGsYS52j2TfLbi"
-      );
-
-      setSubmitStatus("success");
-      form.current.reset();
-      setErrors({});
-    } catch (error) {
-      setSubmitStatus("error");
-      console.error("Error sending email:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText("om7.oussama@gmail.com").then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   return (
     <Container id="contact">
       <Wrapper>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Title>Contact</Title>
-          <Desc>
-            Feel free to reach out to me for any questions or opportunities!
-          </Desc>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <ContactForm onSubmit={handleSubmit} ref={form}>
-            <ContactTitle>Email Me 🚀</ContactTitle>
-
-            <div>
-              <ContactInput
-                placeholder="Your Email"
-                name="from_email"
-                type="email"
-                disabled={isSubmitting}
-              />
-              {errors.email && <ErrorText>{errors.email}</ErrorText>}
-            </div>
-
-            <div>
-              <ContactInput
-                placeholder="Your Name"
-                name="from_name"
-                disabled={isSubmitting}
-              />
-              {errors.name && <ErrorText>{errors.name}</ErrorText>}
-            </div>
-
-            <ContactInput
-              placeholder="Subject"
-              name="subject"
-              disabled={isSubmitting}
-            />
-
-            <div>
-              <ContactInputMessage
-                placeholder="Message"
-                rows="4"
-                name="message"
-                disabled={isSubmitting}
-              />
-              {errors.message && <ErrorText>{errors.message}</ErrorText>}
-            </div>
-
-            <ContactButton
-              type="submit"
-              value={isSubmitting ? "Sending..." : "Send"}
-              disabled={isSubmitting}
-            />
-
-            {submitStatus === "success" && (
-              <SuccessText>Message sent successfully!</SuccessText>
-            )}
-            {submitStatus === "error" && (
-              <ErrorText>Failed to send message. Please try again.</ErrorText>
-            )}
-          </ContactForm>
-        </motion.div>
+        <Title>Contact Me</Title>
+        <EmailContainer>
+          <EmailLink href="mailto:om7.oussama@gmail.com">
+            om7.oussama@gmail.com
+          </EmailLink>
+          <CopyButton onClick={handleCopy} disabled={copied}>
+            {copied ? "Copied!" : "Copy"}
+          </CopyButton>
+        </EmailContainer>
+        {copied && <StatusText>Email copied to clipboard!</StatusText>}
       </Wrapper>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        style={{ position: "absolute", right: 0, bottom: 0 }}
-      >
-        <EarthCanvas />
-      </motion.div>
     </Container>
   );
 };
