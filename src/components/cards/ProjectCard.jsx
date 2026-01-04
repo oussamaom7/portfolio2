@@ -5,20 +5,40 @@ const Card = styled.article`
   width: 100%;
   max-width: 360px;
   height: 540px;
-  background-color: ${({ theme }) => theme.card};
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  background: ${({ theme }) => theme.card};
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid ${({ theme }) => theme.card_border};
+  border-radius: 20px;
   overflow: hidden;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: ${({ theme }) => theme.gradient};
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
-    border-color: ${({ theme }) => theme.primary + 30};
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    border-color: ${({ theme }) => theme.primary}40;
+  }
+
+  &:hover::before {
+    opacity: 1;
   }
 
   @media (max-width: 1024px) {
@@ -37,9 +57,13 @@ const Image = styled.img`
   width: 100%;
   height: 180px;
   background-color: ${({ theme }) => theme.card_light};
-  border-radius: 10px;
+  border-radius: 14px;
   object-fit: cover;
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.4s ease;
+  
+  ${Card}:hover & {
+    transform: scale(1.03);
+  }
 `;
 const Tags = styled.div`
   width: 100%;
@@ -50,17 +74,19 @@ const Tags = styled.div`
   margin-top: 4px;
 `;
 const Tag = styled.span`
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 500;
   color: ${({ theme }) => theme.primary};
-  background-color: rgba(79, 70, 229, 0.12);
-  padding: 2px 8px;
-  border-radius: 10px;
-  transition: all 0.3s ease;
+  background: rgba(99, 102, 241, 0.12);
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
 
   &:hover {
-    background-color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primary};
     color: #ffffff;
+    border-color: ${({ theme }) => theme.primary};
   }
 `;
 const Details = styled.div`
@@ -71,7 +97,7 @@ const Details = styled.div`
   padding: 0px 2px;
 `;
 const Title = styled.h3`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
   overflow: hidden;
@@ -79,6 +105,11 @@ const Title = styled.h3`
   white-space: nowrap;
   margin: 0;
   transition: color 0.3s ease;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  
+  ${Card}:hover & {
+    color: ${({ theme }) => theme.primary};
+  }
 `;
 const Subtitle = styled.p`
   font-size: 14px;
@@ -130,13 +161,18 @@ const ButtonPrimary = styled.a`
   text-align: center;
   padding: 10px 12px;
   border-radius: 10px;
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.gradient};
   color: #ffffff;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
-  &:hover { background: ${({ theme }) => theme.primary_light}; transform: translateY(-2px); }
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+  
+  &:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  }
 `;
 
 const ButtonOutline = styled.a`
@@ -144,13 +180,20 @@ const ButtonOutline = styled.a`
   text-align: center;
   padding: 10px 12px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.16);
+  border: 1px solid ${({ theme }) => theme.card_border};
+  background: transparent;
   color: ${({ theme }) => theme.text_primary};
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-  &:hover { background: ${({ theme }) => theme.card_light}; transform: translateY(-2px); border-color: ${({ theme }) => theme.primary}; }
+  transition: all 0.3s ease;
+  
+  &:hover { 
+    background: ${({ theme }) => theme.card_light}; 
+    transform: translateY(-2px); 
+    border-color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.primary};
+  }
 `;
 
 const ProjectCard = ({ project, setOpenModal }) => {

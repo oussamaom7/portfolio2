@@ -1,7 +1,6 @@
 import React from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { VerticalTimelineElement } from "react-vertical-timeline-component";
-import { darkTheme } from "../../utils/Themes";
 
 const Top = styled.div`
   width: 100%;
@@ -28,6 +27,7 @@ const Name = styled.div`
   font-size: 18px;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
+  font-family: "Space Grotesk", "Inter", sans-serif;
 
   @media only screen and (max-width: 768px) {
     font-size: 14px;
@@ -65,38 +65,18 @@ const Description = styled.div`
 `;
 const Span = styled.div``;
 
-// Override library defaults that use !important
-const TimelineOverrides = createGlobalStyle`
-  .vertical-timeline-element-content {
-    background: ${({ theme }) => theme.card} !important;
-    color: ${({ theme }) => theme.text_primary} !important;
-    border: 1px solid rgba(148, 163, 184, 0.20) !important;
-  }
-  .vertical-timeline-element-content-arrow {
-    border-right-color: ${({ theme }) => theme.card} !important;
-  }
-  .vertical-timeline-element-icon {
-    background: ${({ theme }) => theme.card} !important;
-    color: ${({ theme }) => theme.text_primary} !important;
-    box-shadow: 0 0 0 4px rgba(148,163,184,0.20), inset 0 0 0 1px rgba(148,163,184,0.25) !important;
-  }
-  .vertical-timeline-element-date {
-    color: ${({ theme }) => theme.text_secondary} !important;
-  }
-  .vertical-timeline-element-content p,
-  .vertical-timeline-element-content div,
-  .vertical-timeline-element-title,
-  .vertical-timeline-element-subtitle {
-    color: ${({ theme }) => theme.text_primary} !important;
-  }
-`;
+// Override library defaults that use !important - removed as we handle styles inline now
 
 const EducationCard = ({ education, theme }) => {
-  const isDarkTheme = theme === darkTheme;
+  // Check if dark mode by comparing bg color (more reliable than object reference)
+  const isDarkTheme = theme?.bg === "#0a0a0f";
+  const cardBg = isDarkTheme ? "rgba(18, 18, 26, 0.8)" : "rgba(255, 255, 255, 0.9)";
+  const iconBg = isDarkTheme 
+    ? "rgba(18, 18, 26, 0.9)" 
+    : "rgba(255, 255, 255, 0.95)";
 
   return (
     <>
-      <TimelineOverrides />
       <VerticalTimelineElement
       icon={
         <img
@@ -117,30 +97,24 @@ const EducationCard = ({ education, theme }) => {
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        background: theme.card,
-        backgroundColor: theme.card,
+        background: cardBg,
+        backdropFilter: "blur(20px)",
         color: theme.text_primary,
-        boxShadow: isDarkTheme
-          ? "rgba(0, 0, 0, 0.5) 0px 8px 24px"
-          : "rgba(23, 92, 230, 0.08) 0px 4px 24px",
-        border: isDarkTheme
-          ? "1px solid rgba(148, 163, 184, 0.20)" // slate-400 @ 20%
-          : "1px solid #E2E8F0", // slate-200
-        borderRadius: "12px",
+        boxShadow: theme?.glow || "0 0 40px rgba(99, 102, 241, 0.1)",
+        border: `1px solid ${theme?.card_border || "rgba(99, 102, 241, 0.15)"}`,
+        borderRadius: "20px",
       }}
       contentArrowStyle={{
-        borderRight: `7px solid ${theme.card}`,
+        borderRight: `7px solid ${cardBg}`,
       }}
       iconStyle={{
-        background: theme.card,
+        background: iconBg,
         color: theme.text_primary,
-        boxShadow: isDarkTheme
-          ? "0 0 0 4px rgba(148,163,184,0.20), inset 0 0 0 1px rgba(148,163,184,0.25)"
-          : "0 0 0 4px #E2E8F0, inset 0 0 0 1px #CBD5E1",
+        boxShadow: "0 0 0 4px rgba(99, 102, 241, 0.2), inset 0 0 0 1px rgba(99, 102, 241, 0.3)",
       }}
       date={
         <span style={{
-          color: isDarkTheme ? theme.text_primary : theme.text_secondary,
+          color: theme.text_secondary,
           fontWeight: 500,
         }}>
           {education.date}

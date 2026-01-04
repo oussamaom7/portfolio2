@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { Bio } from "../../data/constants";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
   width: 100%;
-  padding: 2rem 0;
+  padding: 60px 0 40px;
   display: flex;
   justify-content: center;
   position: relative;
   z-index: 1;
+  background: ${({ theme }) => theme.bgLight};
+  border-top: 1px solid ${({ theme }) => theme.card_border};
 `;
 
 const FooterWrapper = styled.div`
@@ -24,9 +26,13 @@ const FooterWrapper = styled.div`
 `;
 
 const Logo = styled.div`
-  font-weight: 600;
-  font-size: 20px;
-  color: ${({ theme }) => theme.primary};
+  font-weight: 700;
+  font-size: 24px;
+  background: ${({ theme }) => theme.gradient_text};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Space Grotesk", "Inter", sans-serif;
 `;
 
 const Nav = styled.nav`
@@ -47,15 +53,22 @@ const Nav = styled.nav`
 `;
 
 const NavLink = styled.a`
-  color: ${({ theme }) => theme.text_primary};
+  color: ${({ theme }) => theme.text_secondary};
   text-decoration: none;
-  font-size: 1.2rem;
-  transition: color 0.2s ease-in-out;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+  
   &:hover {
     color: ${({ theme }) => theme.primary};
+    background: rgba(99, 102, 241, 0.1);
   }
+  
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 13px;
+    padding: 6px 10px;
   }
 `;
 
@@ -64,21 +77,32 @@ const SocialMediaIcons = styled.div`
   margin-top: 1rem;
 `;
 const SocialMediaIcon = styled.a`
-  display: inline-block;
-  margin: 0 1rem;
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.card};
+  border: 1px solid ${({ theme }) => theme.card_border};
   color: ${({ theme }) => theme.text_primary};
-  transition: color 0.2s ease-in-out;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primary};
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
   }
 `;
 
 const Copyright = styled.p`
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.soft2};
+  margin-top: 2rem;
+  font-size: 13px;
+  color: ${({ theme }) => theme.text_secondary};
   text-align: center;
+  opacity: 0.7;
 `;
 
 const Footer = () => {

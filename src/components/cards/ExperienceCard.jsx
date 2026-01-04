@@ -36,7 +36,8 @@ const Role = styled.div`
   font-size: 18px;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
-  transition: color 0.2s ease-in-out;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  transition: color 0.2s ease;
 
   &:hover {
     color: ${({ theme }) => theme.primary};
@@ -94,25 +95,33 @@ const ItemWrapper = styled.div`
 `;
 
 const Skill = styled(motion.span)`
-  font-size: 15px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_primary + 99};
-  padding: 4px 8px;
-  border-radius: 8px;
-  background-color: ${({ theme }) => theme.primary + 10};
-  transition: all 0.2s ease-in-out;
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.primary};
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.primary + 20};
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.3);
     transform: translateY(-2px);
   }
 
   @media only screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 11px;
   }
 `;
 
-const ExperienceCard = ({ experience }) => {
+const ExperienceCard = ({ experience, theme }) => {
+  const cardBg = theme?.card || "rgba(18, 18, 26, 0.8)";
+  const iconBg = theme?.bg === "#fafafa" 
+    ? "rgba(255, 255, 255, 0.95)" 
+    : "rgba(18, 18, 26, 0.9)";
+  const textColor = theme?.text_primary || "#f8fafc";
+  
   return (
     <VerticalTimelineElement
       icon={
@@ -132,15 +141,20 @@ const ExperienceCard = ({ experience }) => {
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        background: "rgba(255, 255, 255, 0.05)",
-        color: "#000",
-        boxShadow: "rgba(23, 92, 230, 0.15) 0px 4px 24px",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
-        borderRadius: "12px",
-        backdropFilter: "blur(4px)",
+        background: cardBg,
+        color: textColor,
+        boxShadow: theme?.glow || "0 0 40px rgba(99, 102, 241, 0.1)",
+        border: `1px solid ${theme?.card_border || "rgba(99, 102, 241, 0.15)"}`,
+        borderRadius: "20px",
+        backdropFilter: "blur(20px)",
+      }}
+      iconStyle={{
+        background: iconBg,
+        color: textColor,
+        boxShadow: "0 0 0 4px rgba(99, 102, 241, 0.2), inset 0 0 0 1px rgba(99, 102, 241, 0.3)",
       }}
       contentArrowStyle={{
-        borderRight: "7px solid rgba(255, 255, 255, 0.05)",
+        borderRight: `7px solid ${cardBg}`,
       }}
       date={experience.date}
     >

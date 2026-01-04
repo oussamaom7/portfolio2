@@ -8,15 +8,18 @@ const HeroContainer = styled.section`
   display: flex;
   justify-content: center;
   position: relative;
-  padding: 80px 30px;
+  padding: 100px 30px 120px;
   z-index: 1;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
 
   @media (max-width: 960px) {
-    padding: 66px 16px;
+    padding: 80px 16px 100px;
+    min-height: auto;
   }
 
   @media (max-width: 640px) {
-    padding: 32px 16px;
+    padding: 60px 16px 80px;
   }
 
   clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 95%, 0 100%);
@@ -49,13 +52,15 @@ const HeroRightContainer = styled.div`
   width: 100%;
   order: 2;
   display: flex;
-  justify-content: end;
+  justify-content: center;
+  align-items: center;
+  
   @media (max-width: 960px) {
     order: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-contents: center;
+    justify-content: center;
     margin-bottom: 80px;
   }
 
@@ -66,58 +71,63 @@ const HeroRightContainer = styled.div`
 
 const Title = styled.div`
   font-weight: 700;
-  font-size: 50px;
+  font-size: 56px;
   color: ${({ theme }) => theme.text_primary};
-  line-height: 68px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-family: "Space Grotesk", "Inter", sans-serif;
 
   @media (max-width: 960px) {
     text-align: center;
+    font-size: 44px;
+    margin-bottom: 8px;
   }
 
-  @media (max-width: 960px) {
-    font-size: 40px;
-    line-height: 48px;
-    margin-bottom: 8px;
+  @media (max-width: 640px) {
+    font-size: 36px;
   }
 `;
 
 const TextLoop = styled.div`
-  font-weight: 600;
-  font-size: 32px;
+  font-weight: 500;
+  font-size: 28px;
   display: flex;
   gap: 12px;
-  color: ${({ theme }) => theme.text_primary};
-  line-height: 68px;
+  color: ${({ theme }) => theme.text_secondary};
+  line-height: 1.4;
+  margin-top: 12px;
 
   @media (max-width: 960px) {
     text-align: center;
+    font-size: 22px;
+    margin-bottom: 16px;
   }
 
-  @media (max-width: 960px) {
-    font-size: 22px;
-    line-height: 48px;
-    margin-bottom: 16px;
+  @media (max-width: 640px) {
+    font-size: 18px;
   }
 `;
 
-const Span = styled.div`
+const Span = styled.span`
   cursor: pointer;
-  color: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.gradient_text};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 `;
 
 const SubTitle = styled.div`
-  font-size: 20px;
-  line-height: 32px;
-  margin-bottom: 42px;
-  color: ${({ theme }) => theme.text_primary + 95};
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 24px 0 36px;
+  color: ${({ theme }) => theme.text_secondary};
+  max-width: 540px;
 
   @media (max-width: 960px) {
     text-align: center;
-  }
-
-  @media (max-width: 960px) {
-    font-size: 16px;
-    line-height: 32px;
+    font-size: 15px;
+    max-width: 100%;
   }
 `;
 
@@ -126,43 +136,44 @@ const ResumeButton = styled.a`
   -moz-appearance: button;
   appearance: button;
   text-decoration: none;
-
-  width: 95%;
-  max-width: 300px;
-  text-align: center;
-  padding: 16px 0;
-
-  background: linear-gradient(
-    225deg,
-    #ff5f5f 0%,
-    #ff2a2a 100%
-  );
-  background: -moz-linear-gradient(
-    225deg,
-    #ff5f5f 0%,
-    #ff2a2a 100%
-  );
-  background: -webkit-linear-gradient(
-    225deg,
-    #ff5f5f 0%,
-    #ff2a2a 100%
-  );
-  box-shadow: 20px 20px 60px #1f2634, -20px -20px 60px #1f2634;
-  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: ${({ theme }) => theme.gradient};
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   color: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
 
   &:hover {
-    transform: scale(1.05);
-    transition: all 0.4s ease-in-out;
-    box-shadow: 20px 20px 60px #1f2634;
-    filter: brightness(1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+  }
+
+  &:hover::before {
+    left: 100%;
   }
 
   @media (max-width: 640px) {
-    padding: 12px 0;
-    font-size: 18px;
+    padding: 14px 28px;
+    font-size: 15px;
   }
 `;
 
@@ -171,13 +182,18 @@ const HeroImage = styled.img`
   display: block;
   width: 100%;
   height: auto;
-  max-width: 400px;
+  max-width: 380px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border: 2px solid ${({ theme }) => theme.primary};
+  border: 3px solid transparent;
+  background: linear-gradient(${({ theme }) => theme.bg}, ${({ theme }) => theme.bg}) padding-box,
+              ${({ theme }) => theme.gradient} border-box;
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.25),
+              0 0 0 1px rgba(99, 102, 241, 0.1);
+  animation: float 6s ease-in-out infinite;
 
   @media (max-width: 640px) {
-    max-width: 280px;
+    max-width: 260px;
   }
 `;
 
@@ -189,13 +205,24 @@ const SocialMediaIcons = styled.div`
 `;
 
 const SocialMediaIcon = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.card};
+  border: 1px solid ${({ theme }) => theme.card_border};
   color: ${({ theme }) => theme.text_primary};
-  font-size: 24px;
+  font-size: 20px;
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primary};
+    color: white;
     transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
   }
 `;
 

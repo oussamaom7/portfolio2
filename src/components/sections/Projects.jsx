@@ -18,62 +18,83 @@ const Wrapper = styled.div`
   }
 `;
 
-const Title = styled.div`
-  font-size: 52px;
+const Title = styled.h2`
+  font-size: 48px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 20px;
-  color: ${({ theme }) => theme.text_primary};
+  background: ${({ theme }) => theme.gradient_text};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  letter-spacing: -0.02em;
+  
   @media (max-width: 768px) {
     margin-top: 12px;
     font-size: 32px;
   }
 `;
 
-const Desc = styled.div`
-  font-size: 18px;
+const Desc = styled.p`
+  font-size: 16px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
   color: ${({ theme }) => theme.text_secondary};
+  max-width: 600px;
+  line-height: 1.6;
+  margin-top: 12px;
+  
   @media (max-width: 768px) {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
 const ToggleButtonGroup = styled.div`
-display: flex;
-border: 1.5px solid ${({ theme }) => theme.primary};
-color: ${({ theme }) => theme.primary};
-font-size: 16px;
-border-radius: 12px;
-font-weight 500;
-margin: 22px 0;
-@media (max-width: 768px){
-    font-size: 12px;
-}
+  display: flex;
+  background: ${({ theme }) => theme.card};
+  backdrop-filter: blur(20px);
+  border: 1px solid ${({ theme }) => theme.card_border};
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 14px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin: 22px 0;
+  padding: 4px;
+  gap: 4px;
+  
+  @media (max-width: 768px) {
+    font-size: 11px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
 const ToggleButton = styled.div`
-  padding: 8px 18px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  
   &:hover {
-    background: ${({ theme }) => theme.primary + 20};
+    color: ${({ theme }) => theme.primary};
   }
+  
   @media (max-width: 768px) {
-    padding: 6px 8px;
-    border-radius: 4px;
+    padding: 8px 12px;
   }
-  ${({ active, theme }) =>
-    active &&
+  
+  ${({ $active, theme }) =>
+    $active &&
     `
-  background:  ${theme.primary + 20};
+    background: ${theme.gradient};
+    color: white;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
   `}
 `;
 
 const Divider = styled.div`
-  width: 1.5px;
-  background: ${({ theme }) => theme.primary};
+  display: none;
 `;
 
 const CardContainer = styled.div`
@@ -87,16 +108,24 @@ const CardContainer = styled.div`
 const SearchInput = styled.input`
   width: 100%;
   max-width: 400px;
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-radius: 12px;
-  border: 1px solid ${({ theme }) => theme.primary};
-  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.card_border};
+  background: ${({ theme }) => theme.card};
+  backdrop-filter: blur(20px);
   color: ${({ theme }) => theme.text_primary};
-  font-size: 16px;
+  font-size: 15px;
   margin: 8px 0;
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: ${({ theme }) => theme.text_secondary};
+  }
+  
   &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.primary};
+    border-color: ${({ theme }) => theme.primary};
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
   }
 `;
 
@@ -110,14 +139,14 @@ const FilterContainer = styled.div`
 `;
 
 const ProjectsContainer = styled.section`
-  margin-top: 100px;
+  padding: 100px 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   z-index: 1;
-  padding: 0 16px;
   align-items: center;
+  background: radial-gradient(ellipse at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
 `;
 
 const Projects = ({ openModal, setOpenModal }) => {
@@ -161,19 +190,19 @@ const Projects = ({ openModal, setOpenModal }) => {
           />
           
           <ToggleButtonGroup>
-            <ToggleButton active={toggle === "all"} onClick={() => setToggle("all")}>
+            <ToggleButton $active={toggle === "all"} onClick={() => setToggle("all")}>
               ALL
             </ToggleButton>
             <Divider />
-            <ToggleButton active={toggle === "web app"} onClick={() => setToggle("web app")}>
+            <ToggleButton $active={toggle === "web app"} onClick={() => setToggle("web app")}>
               WEB APPS
             </ToggleButton>
             <Divider />
-            <ToggleButton active={toggle === "android app"} onClick={() => setToggle("android app")}>
+            <ToggleButton $active={toggle === "android app"} onClick={() => setToggle("android app")}>
               ANDROID APPS
             </ToggleButton>
             <Divider />
-            <ToggleButton active={toggle === "machine learning"} onClick={() => setToggle("machine learning")}>
+            <ToggleButton $active={toggle === "machine learning"} onClick={() => setToggle("machine learning")}>
               MACHINE LEARNING
             </ToggleButton>
           </ToggleButtonGroup>

@@ -7,21 +7,28 @@ import ThemeToggle from "./ThemeToggle";
 
 // Styled components
 const Nav = styled.div`
-  background-color: ${({ theme }) => theme.bg};
-  height: 80px;
+  background: ${({ theme }) => theme.bg}dd;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   position: sticky;
   top: 0;
-  z-index: 10;
-  transition: all 0.3s ease;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid ${({ theme }) => theme.card_border};
 `;
 
-const ColorText = styled.div`
-  color: ${({ theme }) => theme.primary};
-  font-size: 32px;
+const ColorText = styled.span`
+  background: ${({ theme }) => theme.gradient_text};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 28px;
+  font-weight: 600;
 `;
 
 const NavbarContainer = styled.div`
@@ -60,25 +67,24 @@ const NavItems = styled.ul`
 `;
 
 const NavLink = styled.a`
-  color: ${({ theme, $active }) => ($active ? theme.primary : theme.text_primary)};
+  color: ${({ theme, $active }) => ($active ? theme.primary : theme.text_secondary)};
   font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  
   &:hover {
     color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.card};
   }
-  position: relative;
-  &:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: ${({ $active }) => ($active ? "100%" : "0")};
-    height: 2px;
-    background: ${({ theme }) => theme.primary};
-    transition: width 0.2s ease-in-out;
-  }
+  
+  ${({ $active, theme }) => $active && `
+    color: ${theme.primary};
+    background: rgba(99, 102, 241, 0.1);
+  `}
 `;
 
 const ButtonContainer = styled.div`
@@ -92,21 +98,23 @@ const ButtonContainer = styled.div`
 `;
 
 const GithubButton = styled.a`
-  border: 1px solid ${({ theme }) => theme.primary};
-  color: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.gradient};
+  color: white;
   justify-content: center;
   display: flex;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.6s ease-in-out;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
   text-decoration: none;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+  
   &:hover {
-    background: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.text_primary};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
   }
 `;
 
@@ -126,21 +134,24 @@ const MobileMenu = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 16px;
-  padding: 0 6px;
+  gap: 12px;
   list-style: none;
-  width: 100%;
-  padding: 12px 40px 24px 40px;
-  background: ${({ theme }) => theme.card_light + 99};
+  padding: 20px 24px 28px;
+  background: ${({ theme }) => theme.bg}f5;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   position: absolute;
-  top: 80px;
+  top: 72px;
   right: 0;
-  transition: all 0.6s ease-in-out;
-  transform: ${({ isOpen }) => (isOpen ? "translateY(0)" : "translateY(-100%)")};
-  border-radius: 0 0 20px 20px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: ${({ isOpen }) => (isOpen ? "translateY(0)" : "translateY(-20px)")};
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid ${({ theme }) => theme.card_border};
+  border-top: none;
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
   z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
+  pointer-events: ${({ isOpen }) => (isOpen ? "auto" : "none")};
 `;
 
 const Navbar = ({ isDarkTheme, toggleTheme }) => {  const [isOpen, setIsOpen] = useState(false);

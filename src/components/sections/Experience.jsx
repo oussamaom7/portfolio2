@@ -1,24 +1,18 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { experiences } from "../../data/constants";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import ExperienceCard from "../cards/ExperienceCard";
 
 const Container = styled.div`
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   z-index: 1;
   align-items: center;
-  padding: 40px 0px 80px 0px;
-  background: linear-gradient(
-    343.07deg,
-    rgba(132, 59, 206, 0.06) 5.71%,
-    rgba(132, 59, 206, 0) 64.83%
-  );
+  padding: 80px 16px;
 `;
 
 const Wrapper = styled.div`
@@ -35,25 +29,35 @@ const Wrapper = styled.div`
   }
 `;
 
-const Title = styled.div`
-  font-size: 52px;
+const Title = styled.h2`
+  font-size: 48px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 20px;
-  color: ${({ theme }) => theme.text_primary};
+  background: ${({ theme }) => theme.gradient_text};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  letter-spacing: -0.02em;
+  
   @media (max-width: 768px) {
     margin-top: 12px;
     font-size: 32px;
   }
 `;
 
-const Desc = styled.div`
-  font-size: 18px;
+const Desc = styled.p`
+  font-size: 16px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
   color: ${({ theme }) => theme.text_secondary};
+  max-width: 600px;
+  line-height: 1.6;
+  margin-top: 12px;
+  
   @media (max-width: 768px) {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
@@ -72,6 +76,8 @@ const TimelineSection = styled.div`
 `;
 
 const Experience = () => {
+  const theme = useTheme();
+  
   return (
     <Container id="experience">
       <Wrapper>
@@ -83,12 +89,13 @@ const Experience = () => {
         <TimelineSection>
           <VerticalTimeline
             animate={false}
-            lineColor="rgba(255, 95, 95, 0.2)"
+            lineColor="rgba(99, 102, 241, 0.3)"
           >
             {(experiences || []).map((experience, index) => (
               <ExperienceCard
                 key={`experience-${index}`}
                 experience={experience}
+                theme={theme}
               />
             ))}
           </VerticalTimeline>

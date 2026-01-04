@@ -9,6 +9,7 @@ const Container = styled.div`
   position: relative;
   z-index: 1;
   align-items: center;
+  padding: 80px 16px;
 `;
 
 const Wrapper = styled.div`
@@ -25,25 +26,35 @@ const Wrapper = styled.div`
   }
 `;
 
-const Title = styled.div`
-  font-size: 52px;
+const Title = styled.h2`
+  font-size: 48px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 20px;
-  color: ${({ theme }) => theme.text_primary};
+  background: ${({ theme }) => theme.gradient_text};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  letter-spacing: -0.02em;
+  
   @media (max-width: 768px) {
     margin-top: 12px;
     font-size: 32px;
   }
 `;
 
-const Desc = styled.div`
-  font-size: 18px;
+const Desc = styled.p`
+  font-size: 16px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
   color: ${({ theme }) => theme.text_secondary};
+  max-width: 600px;
+  line-height: 1.6;
+  margin-top: 12px;
+  
   @media (max-width: 768px) {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
@@ -59,19 +70,42 @@ const SkillsContainer = styled.div`
 const Skill = styled.div`
   width: 100%;
   max-width: 500px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid ${({ theme }) => theme.primary + 20};
-  box-shadow: rgba(23, 92, 230, 0.15) 0px 4px 24px;
-  border-radius: 16px;
-  padding: 18px 36px;
+  background: ${({ theme }) => theme.card};
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid ${({ theme }) => theme.card_border};
+  box-shadow: ${({ theme }) => theme.glow};
+  border-radius: 20px;
+  padding: 28px 32px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    border-color: ${({ theme }) => theme.primary}40;
+  }
 `;
 
 const SkillTitle = styled.h3`
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   text-align: center;
   color: ${({ theme }) => theme.text_primary};
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: ${({ theme }) => theme.gradient};
+    border-radius: 2px;
+  }
 `;
 
 const SkillList = styled.div`
@@ -86,15 +120,19 @@ const SkillItem = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: ${({ theme }) => theme.card};
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: ${({ theme }) => theme.card_light};
+  border: 1px solid transparent;
   color: ${({ theme }) => theme.text_primary};
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 
   &:hover {
-    background: ${({ theme }) => theme.primary + 10};
+    background: rgba(99, 102, 241, 0.15);
+    border-color: ${({ theme }) => theme.primary}40;
+    transform: translateY(-2px);
   }
 `;
 
