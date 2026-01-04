@@ -1,6 +1,7 @@
 {
-  "short_name": "Oussama Portfolio",
-  "name": "Oussama Maache - Full Stack Developer Portfolio",
+  "short_name": "Oussama Maache",
+  "name": "Oussama Maache | Full Stack Developer & Software Engineer",
+  "description": "Portfolio of Oussama Maache - Results-driven Software Engineer specializing in MERN stack, React, Node.js, Java, Spring Boot.",
   "icons": [
     {
       "src": "hero.jpg",
@@ -10,16 +11,21 @@
     {
       "src": "hero.jpg",
       "type": "image/jpeg",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "hero.jpg",
       "type": "image/jpeg",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation": "portrait-primary",
+  "theme_color": "#6366f1",
+  "background_color": "#0a0a0f",
+  "categories": ["portfolio", "business", "productivity"]
 }
