@@ -10,6 +10,8 @@ import Ark from "../images/Arkx.jpeg";
 import fanus from "../images/fanus.jpeg";
 import omia from "../images/omiadata.jpeg";
 import asma from "../images/asmapref.png";
+import aipfaVideo from "../images/aipfa.mp4";
+import ULM from "../images/ULM.png";
 
 export const Bio = {
   name: "Oussama Maache",
@@ -287,6 +289,41 @@ export const education = [
 ];
 // Projects
 export const projects = [
+  {
+    id: 0,
+    title: "FactCheck AI",
+    date: "",
+    subtitle: "AI-powered fact verification platform",
+    description:
+      "FactCheck AI is an intelligent fact-checking application that leverages artificial intelligence to verify claims and detect misinformation. The platform analyzes text inputs, cross-references multiple reliable sources, and provides users with accuracy scores and detailed explanations. Built to combat the spread of false information in the digital age.",
+    image: aipfaVideo,
+    isVideo: true,
+    tags: ["AI", "RAG", "SpringAI", "NLP", "Angular","Kafka"],
+    category: "machine learning",
+    github: "",
+    webapp: "",
+    problem: "Misinformation spreads rapidly online, making it difficult for users to verify claims.",
+    solution: "Built an AI-powered system that analyzes claims and cross-references trusted sources for verification.",
+    impact: "Enables users to quickly verify information accuracy, promoting informed decision-making.",
+    caseStudy: "",
+  },
+  {
+    id: 1,
+    title: "ULM ERP",
+    date: "",
+    subtitle: "Enterprise Resource Planning for mining company",
+    description:
+      "ULM ERP is a comprehensive enterprise resource planning system built for ULM Industries, a mining company. The platform features a modern dashboard with real-time analytics including sales tracking, purchase management, stock movements, treasury balance, and client management. It provides detailed reporting, stock monitoring, and financial insights to streamline mining operations.",
+    image: ULM,
+    tags: ["React", "SpringBoot", "ERP", "Dashboard", "Analytics"],
+    category: "web app",
+    github: "",
+    webapp: "",
+    problem: "Mining operations lacked centralized visibility into sales, purchases, and inventory.",
+    solution: "Built a full ERP system with real-time dashboards, stock tracking, and financial reporting.",
+    impact: "Improved operational efficiency and decision-making with unified data access.",
+    caseStudy: "",
+  },
   {
     id: 4,
     title: " Inventory Management App",

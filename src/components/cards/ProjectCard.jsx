@@ -65,6 +65,19 @@ const Image = styled.img`
     transform: scale(1.03);
   }
 `;
+
+const Video = styled.video`
+  width: 100%;
+  height: 180px;
+  background-color: ${({ theme }) => theme.card_light};
+  border-radius: 14px;
+  object-fit: cover;
+  transition: all 0.4s ease;
+  
+  ${Card}:hover & {
+    transform: scale(1.03);
+  }
+`;
 const Tags = styled.div`
   width: 100%;
   display: flex;
@@ -200,19 +213,31 @@ const ProjectCard = ({ project, setOpenModal }) => {
   const fallback = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAABQCAYAAABu7m8SAAAACXBIWXMAAAsSAAALEgHS3X78AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABGhJREFUeNrs3cENgzAQBVA6//+m0l2mVhQm0lQk5qg7cQ2Q5x2yq7y0p9yWv2gQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwC+u2bZtW3V3eQwQm9P9f4G7vVbD4eE8g+8v8hQ3Jw8A2a1Z9w7JxgWw5JX9l7vQfE1n0Qm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xgQm4o8xiQ9uD3dQwAAAPB0YQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8E74AAf2mVJb0Jb5wAAAAAElFTkSuQmCC";
   return (
     <Card onClick={() => setOpenModal && setOpenModal({ state: true, project })}>
-      <Image
-        src={project.image}
-        alt={project.title}
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-        width="330"
-        height="180"
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = fallback;
-        }}
-      />
+      {project.isVideo ? (
+        <Video
+          src={project.image}
+          autoPlay
+          loop
+          muted
+          playsInline
+          width="330"
+          height="180"
+        />
+      ) : (
+        <Image
+          src={project.image}
+          alt={project.title}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          width="330"
+          height="180"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = fallback;
+          }}
+        />
+      )}
       <Tags>
         {project.tags?.map((tag, index) => (
           <Tag key={index}>{tag}</Tag>

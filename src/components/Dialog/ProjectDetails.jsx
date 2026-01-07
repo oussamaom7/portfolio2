@@ -71,6 +71,14 @@ const Image = styled.img`
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 `;
 
+const Video = styled.video`
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 30px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+`;
+
 const Label = styled.div`
   font-size: 20px;
   font-weight: 600;
@@ -198,7 +206,18 @@ const ProjectDetails = ({ openModal, setOpenModal }) => {
             }}
             onClick={() => setOpenModal({ state: false, project: null })}
           />
-          <Image src={project?.image} />
+          {project?.isVideo ? (
+            <Video
+              src={project?.image}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+            />
+          ) : (
+            <Image src={project?.image} />
+          )}
           <Title>{project?.title}</Title>
           <Date>{project.date}</Date>
           <Tags>
